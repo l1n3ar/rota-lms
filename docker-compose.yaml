@@ -1,0 +1,57 @@
+name: rotalms
+
+services:
+  rota_web:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: rota_web_${RELEASE_VERSION:-prod}
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      rota_db:
+        condition: service_healthy
+    ports:
+      - "8003:8003"
+    volumes:
+      - rota_static:/app/staticfiles
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 384M      # Perfectly fits the ~207MB footprint
+        reservations:
+          memory: 128M
+
+  rota_db:
+    image: postgres:16
+    container_name: rota_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "64410:5432"
+    volumes:
+      - rota_pgdata:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M      # Postgres is currently using ~32MB; this leaves ample cache room
+        reservations:
+          memory: 128M
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  rota_static:
+
+  rota_pgdata:
+    external: true
+    name: rota_backend_rota_pgdata
