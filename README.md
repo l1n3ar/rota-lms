@@ -26,4 +26,4 @@ ROTA is a free, open‑source LMS designed for developers and educators who want
 - **Frontend:** Next.js, React  
 - **Backend:** Django, Django REST Framework  
 - **Python tooling:** uv  
-- **Database:** PostgreSQL 
+- **Database:** PostgreSQL  
