@@ -1,13 +1,33 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, extend_schema_view
 from django.contrib.auth import get_user_model
 from core_auth.api.v1.serializers.user import UserProfileUpdateSerializer, UserProfileResponseSerializer
 
 User = get_user_model()
 
-
+@extend_schema_view(
+    get=extend_schema(
+        tags=['Auth', 'Profile'],
+        summary="Get Current User Profile",
+        responses={200: UserProfileResponseSerializer}
+    ),
+    patch=extend_schema(
+        tags=['Auth', 'Profile'],
+        summary="Update Profile Partial (Complete Onboarding)",
+        description="Submit first_name and last_name to complete onboarding. Returns a fresh JWT pair with updated claims.",
+        request=UserProfileUpdateSerializer,
+        responses={200: UserProfileResponseSerializer}
+    ),
+    put=extend_schema(
+        tags=['Auth', 'Profile'],
+        summary="Update Profile Full",
+        description="Replace user profile data. Returns a fresh JWT pair with updated claims.",
+        request=UserProfileUpdateSerializer,
+        responses={200: UserProfileResponseSerializer}
+    )
+)
 class UserProfileUpdateView(generics.RetrieveUpdateAPIView):
     """
     Allows a user to retrieve or update their profile.
@@ -24,24 +44,6 @@ class UserProfileUpdateView(generics.RetrieveUpdateAPIView):
         if self.request.method in ['PUT', 'PATCH']:
             return UserProfileUpdateSerializer
         return UserProfileResponseSerializer
-
-    @extend_schema(
-        tags=['Auth', 'Profile'],
-        summary="Get Current User Profile",
-        responses={200: UserProfileResponseSerializer}
-    )
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-
-    @extend_schema(
-        tags=['Auth', 'Profile'],
-        summary="Update Profile (Complete Onboarding)",
-        description="Submit first_name and last_name to complete onboarding. Returns a fresh JWT pair with updated claims.",
-        request=UserProfileUpdateSerializer,
-        responses={200: UserProfileResponseSerializer}
-    )
-    def patch(self, request, *args, **kwargs):
-        return self.update(request, partial=True, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
