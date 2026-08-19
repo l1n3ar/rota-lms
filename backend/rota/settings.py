@@ -30,7 +30,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-IMPLE_JWT = {
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'ROTA OPENCORE API',
+    'DESCRIPTION': 'The first version of the ROTA OPENCORE API. Note: This is currently in development and is not intended for production use.',
+    'VERSION': '0.1.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
+SIMPLE_JWT = {
     # 1. Short access token limits damage if leaked (Expires in 15 mins)
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
 
