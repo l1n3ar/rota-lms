@@ -53,6 +53,6 @@ USER appuser
 # Run collectstatic natively (requires no uv wrapper)
 RUN python manage.py collectstatic --noinput
 
-EXPOSE 8009
+EXPOSE 31247
 
-CMD ["gunicorn", "rota.wsgi:application", "--bind", "0.0.0.0:8009", "--workers", "2", "--worker-class", "gthread", "--threads", "2", "--timeout", "30", "--keep-alive", "2", "--max-requests", "1000", "--max-requests-jitter", "50"]
+CMD ["gunicorn", "rota.wsgi:application", "--bind", "0.0.0.0:31247", "--workers", "2", "--worker-class", "gthread", "--threads", "2", "--timeout", "30", "--keep-alive", "2", "--max-requests", "1000", "--max-requests-jitter", "50"]

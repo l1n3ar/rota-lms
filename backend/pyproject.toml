@@ -24,7 +24,9 @@ dependencies = [
     "psycopg2-binary>=2.9.12",
     "python-dotenv>=1.2.2",
     "requests>=2.32.0",
-    "whitenoise>=6.12.0,<8.0.0",           # allow 6.x or 7.x
+    "whitenoise>=6.12.0,<8.0.0",
+    "fabric>=3.2.3",
+
 ]
 [tool.uv]
 index-url = "https://package-mirror.liara.ir/repository/pypi/simple"

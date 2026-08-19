@@ -91,7 +91,7 @@ class OTPRequestView(views.APIView):
         response_data = {"detail": "OTP sent successfully."}
 
         # Developer Experience (DX) Handling
-        if settings.DEBUG:
+        if settings.EMAIL_SANDBOX:
             print(f"\n[DEBUG] OTP for {user.email}: {otp_instance.code}\n")
             response_data["_debug_otp"] = otp_instance.code
 

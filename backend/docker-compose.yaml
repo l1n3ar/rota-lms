@@ -4,7 +4,7 @@ services:
   rota_web:
     build:
       context: .
-      dockerfile: backend/Dockerfile
+      dockerfile: Dockerfile
     container_name: rota_web_${RELEASE_VERSION:-prod}
     restart: always
     env_file:
@@ -13,7 +13,7 @@ services:
       rota_db:
         condition: service_healthy
     ports:
-      - "8003:8003"
+      - "31247:31247"
     volumes:
       - rota_static:/app/staticfiles
     deploy:
@@ -33,7 +33,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "64410:5432"
+      - "64510:5432"
     volumes:
       - rota_pgdata:/var/lib/postgresql/data
     deploy:

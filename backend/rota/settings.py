@@ -19,15 +19,14 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / ".env.dev")
+load_dotenv(BASE_DIR / ".env")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key")
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
-
-
+EMAIL_SANDBOX = os.getenv("EMAIL_SANDBOX", "True").lower() == "true"
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'ROTA OPENCORE API',
