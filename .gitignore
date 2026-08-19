@@ -16,6 +16,7 @@ db.sqlite3
 media/
 staticfiles/
 static/
+deploy.py
 
 # Django specific
 *.mo
