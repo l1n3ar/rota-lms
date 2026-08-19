@@ -44,7 +44,6 @@ dependencies = [
     { name = "psycopg2-binary" },
     { name = "python-dotenv" },
     { name = "requests" },
-    { name = "rest-framework-simplejwt" },
     { name = "whitenoise" },
 ]
 
@@ -53,24 +52,23 @@ requires-dist = [
     { name = "bleach", specifier = ">=6.4.0" },
     { name = "boto3", specifier = ">=1.43.36" },
     { name = "cryptography", specifier = ">=49.0.0" },
-    { name = "dj-rest-auth", specifier = ">=7.2.0" },
+    { name = "dj-rest-auth", specifier = ">=7.2.0,<8.0.0" },
     { name = "django", specifier = ">=6.1" },
     { name = "django-allauth", specifier = ">=65.18.0" },
     { name = "django-cors-headers", specifier = ">=4.9.0" },
     { name = "django-multiselectfield", specifier = ">=1.0.1" },
     { name = "django-sortedm2m", specifier = ">=4.0.0" },
     { name = "django-storages", specifier = ">=1.14.6" },
-    { name = "djangorestframework", specifier = "==3.16.0" },
-    { name = "djangorestframework-simplejwt", specifier = "==5.5.0" },
-    { name = "drf-spectacular", specifier = ">=0.29.0" },
+    { name = "djangorestframework", specifier = ">=3.15.0,<4.0.0" },
+    { name = "djangorestframework-simplejwt", specifier = ">=5.5.0,<6.0.0" },
+    { name = "drf-spectacular", specifier = ">=0.29.0,<0.31.0" },
     { name = "gunicorn", specifier = ">=26.0.0" },
     { name = "mutagen", specifier = ">=1.48.1" },
     { name = "pillow", specifier = ">=12.2.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.12" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
-    { name = "requests" },
-    { name = "rest-framework-simplejwt", specifier = ">=0.0.2" },
-    { name = "whitenoise", specifier = ">=6.12.0" },
+    { name = "requests", specifier = ">=2.32.0" },
+    { name = "whitenoise", specifier = ">=6.12.0,<8.0.0" },
 ]
 
 [[package]]
@@ -87,30 +85,30 @@ wheels = [
 
 [[package]]
 name = "boto3"
-version = "1.43.72"
+version = "1.43.74"
 source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
 dependencies = [
     { name = "botocore" },
     { name = "jmespath" },
     { name = "s3transfer" },
 ]
-sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/96/cc/f22093524c3b38e94ba2d0e6743d7e264f7190d149c8dceaf9603822c595/boto3-1.43.72.tar.gz", hash = "sha256:6280ce03cc85e9110fd9fb7e2fbf11eae0b1177cb041a0d69aa88edc9d178cf9" }
+sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/02/3b/a8c14b2390a54189b0b14c03376e05150dcc4c1a875d18bff8f6594d7494/boto3-1.43.74.tar.gz", hash = "sha256:9d4d0dcf81c941cfe7d927486435521e0f3bf657cb68b10dfe445cfe311f8839" }
 wheels = [
-    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/c4/b7/fa7b827ce0fc9bd697381e40f59d69a74c6ab553e246271685ec0acc75b2/boto3-1.43.72-py3-none-any.whl", hash = "sha256:f1bbbad5ed8d8a8c64edb0cd092dc443c95a85623b2ac88b6f6d633717605f00" },
+    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/5b/a1/61f89804cfa2f3517319bd92fffca12d35dfe90621f9d4f2ca95818eaa96/boto3-1.43.74-py3-none-any.whl", hash = "sha256:d7f6a921efbda61ed787b403df8b64a95bc66e66299e9772fc40c235c28a5bde" },
 ]
 
 [[package]]
 name = "botocore"
-version = "1.43.72"
+version = "1.43.74"
 source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
 dependencies = [
     { name = "jmespath" },
     { name = "python-dateutil" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/a1/99/a8cfeaea98d5085a493af909d09d174466482235a7fda291be18c9a5a76e/botocore-1.43.72.tar.gz", hash = "sha256:1b878c69081e8e9d55aa4c0d85683e7b07f0e274a5554662f9507a46641be3d2" }
+sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/1d/fb/00969dfa9fee1d1e278a0e65109d07acacceae4acd177d9d9413479720ab/botocore-1.43.74.tar.gz", hash = "sha256:b127b24d49532b5d7b0851b4abb3d3b99f58a121f87f07c23dac7c4d88b25c72" }
 wheels = [
-    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/f4/27/35814fd8701a6b8be0aa47a7fcbd1ea0706189410a47d71ff29ddcc3ad4d/botocore-1.43.72-py3-none-any.whl", hash = "sha256:de5a1bcf8d7602c6cefc15016f15dad82981e339192531f31fa9483e11feea47" },
+    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/c6/b0/d1446c501d8a59db3881b2bca136024e0ee4f381efb58122a0608a276a16/botocore-1.43.74-py3-none-any.whl", hash = "sha256:5793d9170b2b9f3194fb6f667feed8986eb81f767528d52ceaf45df2242d56e9" },
 ]
 
 [[package]]
@@ -409,28 +407,28 @@ wheels = [
 
 [[package]]
 name = "djangorestframework"
-version = "3.16.0"
+version = "3.18.0"
 source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
 dependencies = [
     { name = "django" },
 ]
-sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/7d/97/112c5a72e6917949b6d8a18ad6c6e72c46da4290c8f36ee5f1c1dcbc9901/djangorestframework-3.16.0.tar.gz", hash = "sha256:f022ff46613584de994c0c6a4aebbace5fd700555fbe9d33b865ebf173eba6c9" }
+sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/79/bc/de04e3d4dc65e8b926700956ee70d4f084f2005603d21122d4d0683006fd/djangorestframework-3.18.0.tar.gz", hash = "sha256:2323a5111837e0b784dcb8323abc78ecc54fa2a5af7aff2677cf50cdd849477f" }
 wheels = [
-    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/eb/3e/2448e93f4f87fc9a9f35e73e3c05669e0edd0c2526834686e949bb1fd303/djangorestframework-3.16.0-py3-none-any.whl", hash = "sha256:bea7e9f6b96a8584c5224bfb2e4348dfb3f8b5e34edbecb98da258e892089361" },
+    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/51/d7/7461738e819b853275b35fd35712a85806c09a327e1fd5f8ff766bdd317e/djangorestframework-3.18.0-py3-none-any.whl", hash = "sha256:381fc44d3249c9565c5f723850855b734e99030eb30957a49f506d3fe11d7dcb" },
 ]
 
 [[package]]
 name = "djangorestframework-simplejwt"
-version = "5.5.0"
+version = "5.5.1"
 source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
 dependencies = [
     { name = "django" },
     { name = "djangorestframework" },
     { name = "pyjwt" },
 ]
-sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/db/1e/0d4439d0fa1d93599fbcfc56efdc02cbf012e3a4b4ef90c835e0a51017d4/djangorestframework_simplejwt-5.5.0.tar.gz", hash = "sha256:474a1b737067e6462b3609627a392d13a4da8a08b1f0574104ac6d7b1406f90e" }
+sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/a8/27/2874a325c11112066139769f7794afae238a07ce6adf96259f08fd37a9d7/djangorestframework_simplejwt-5.5.1.tar.gz", hash = "sha256:e72c5572f51d7803021288e2057afcbd03f17fe11d484096f40a460abc76e87f" }
 wheels = [
-    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/42/b4/d1c1750aa7c8cc07e4974275f96b9b9b3a38e95ff734e14b4e97790c8974/djangorestframework_simplejwt-5.5.0-py3-none-any.whl", hash = "sha256:4ef6b38af20cdde4a4a51d1fd8e063cbbabb7b45f149cc885d38d905c5a62edb" },
+    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/60/94/fdfb7b2f0b16cd3ed4d4171c55c1c07a2d1e3b106c5978c8ad0c15b4a48b/djangorestframework_simplejwt-5.5.1-py3-none-any.whl", hash = "sha256:2c30f3707053d384e9f315d11c2daccfcb548d4faa453111ca19a542b732e469" },
 ]
 
 [[package]]
@@ -452,23 +450,20 @@ wheels = [
 
 [[package]]
 name = "gunicorn"
-version = "26.0.0"
+version = "26.1.0"
 source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
-dependencies = [
-    { name = "packaging" },
-]
-sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/6d/b7/a4a3f632f823e432ce6bc65f62961b7980c898c77f075a2f7118cb3846fe/gunicorn-26.0.0.tar.gz", hash = "sha256:ca9346f85e3a4aeeb64d491045c16b9a35647abd37ea15efe53080eb8b090baf" }
+sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/38/b8/ec4ba3f6cace4091c34e27478b576bb80f2f06fab80fd42c0ecc785b308f/gunicorn-26.1.0.tar.gz", hash = "sha256:1413d777bf99d31ebeb08acd354b01f1ecc44db0aa7b811ae7b86c669232e4f7" }
 wheels = [
-    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/e6/40/9c2384fc2be4ad25dd4a49decd5ad9ea5a3639814c11bd40ab77cb9f0a14/gunicorn-26.0.0-py3-none-any.whl", hash = "sha256:40233d26a5f0d1872916188c276e21641155111c2853f0c2cd55260aec0d24fc" },
+    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/19/dc/7a55fc605543fd5cb11c003fbbb21a1911d5e88a582cce6c5e063bf5c176/gunicorn-26.1.0-py3-none-any.whl", hash = "sha256:9f45bcddec5e9dc7a25a3bdccb0c6832f11fd5d4739b1ee36c8d2fec25f1dc86" },
 ]
 
 [[package]]
 name = "idna"
-version = "3.18"
+version = "3.19"
 source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
-sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/cd/63/9496c57188a2ee585e0f1db071d75089a11e98aa86eb99d9d7618fc1edce/idna-3.18.tar.gz", hash = "sha256:ffb385a7e039654cef1ab9ef32c6fafe283c0c0467bba1d9029738ce4a14a848" }
+sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/5f/f7/abb373e5757eaec4b922b92f97ec8d6d7e057cf06778247604fbc4e7c3f3/idna-3.19.tar.gz", hash = "sha256:5e0811a4383b21dc5838069f801c4fb62113b7447663d2530d2bd6e77b49bf15" }
 wheels = [
-    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/1e/5e/d4e9f1a599fb8e573b7b87160658329fbf28d19eac2718f51fc3def3aa5a/idna-3.18-py3-none-any.whl", hash = "sha256:7f952cbe720b688055e3f87de14f5c3e5fdaa8bc3928985c4077ca689de849a2" },
+    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/57/b0/0e52c878c53f245edd3a11020f20979b3f490f245af532c7cae3027754b5/idna-3.19-py3-none-any.whl", hash = "sha256:815e7be7a7806d54abb586dc943addc79e8b2ee16915059658cbeff4b1b43bf4" },
 ]
 
 [[package]]
@@ -523,15 +518,6 @@ source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
 sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/df/70/1675da133ea92227da41bf5b24e1c66be597ff736a1533ade41da986852f/mutagen-1.48.1.tar.gz", hash = "sha256:8f95637ab9f6f305cec6bd1294e197debe207998e3e068596563c74f86b0a173" }
 wheels = [
     { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/47/d8/a29e4e3991765e7ce4ed1f7e4074fe1ba9da03e0048639734de60f9cadb9/mutagen-1.48.1-py3-none-any.whl", hash = "sha256:4f077fe87d3fc7fba259aa63d8c026b18382ca6a42ef37c61e16f1b1b5b82fe7" },
-]
-
-[[package]]
-name = "packaging"
-version = "26.3"
-source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
-sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/7d/fa/3944b40b07da9ce895c0e6303a5ab7d53da063554f534556b134a54d6093/packaging-26.3.tar.gz", hash = "sha256:94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79" }
-wheels = [
-    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl", hash = "sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c" },
 ]
 
 [[package]]
@@ -614,11 +600,11 @@ wheels = [
 
 [[package]]
 name = "pyjwt"
-version = "2.9.0"
+version = "2.13.0"
 source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
-sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/fb/68/ce067f09fca4abeca8771fe667d89cc347d1e99da3e093112ac329c6020e/pyjwt-2.9.0.tar.gz", hash = "sha256:7e1e5b56cc735432a7369cbfa0efe50fa113ebecdc04ae6922deba8b84582d0c" }
+sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/3b/81/58d0ac84e1ef3a3843791d6954d94c0b33d526c75eeb1efbce9d0a4c4077/pyjwt-2.13.0.tar.gz", hash = "sha256:41571c89ca91598c79e8ef18a2d07367d4810fbbd6f637794879baf1b7703423" }
 wheels = [
-    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/79/84/0fdf9b18ba31d69877bd39c9cd6052b47f3761e9910c15de788e519f079f/PyJWT-2.9.0-py3-none-any.whl", hash = "sha256:3b02fb0f44517787776cf48f2ae25d8e14f300e6d7545a4315cee571a415e850" },
+    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/a3/5e/ecf12fdb62546d64385c158514e9b2b671f7832108ef2ecd2020ce0af2d1/pyjwt-2.13.0-py3-none-any.whl", hash = "sha256:66adcc2aff09b3f1bbd95fc1e1577df8ac8723c978552fd43304c8a290ac5728" },
 ]
 
 [[package]]
@@ -694,15 +680,6 @@ dependencies = [
 sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz", hash = "sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed" }
 wheels = [
     { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl", hash = "sha256:2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0" },
-]
-
-[[package]]
-name = "rest-framework-simplejwt"
-version = "0.0.2"
-source = { registry = "https://package-mirror.liara.ir/repository/pypi/simple" }
-sdist = { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/b3/82/b33aeec7825b6c97dececb80234dacf458ee337727c5c00d4592182913b1/rest_framework_simplejwt-0.0.2.tar.gz", hash = "sha256:035187ce5380e18e8b966610a89b6460fb4b73cd179979343888fb190328125d" }
-wheels = [
-    { url = "https://package-mirror.liara.ir/repository/pypi/packages/packages/28/de/60ad25b09eb586d8b63b5246cce264b10055a4e09e4bb5aca9e9ec374807/rest_framework_simplejwt-0.0.2-py3-none-any.whl", hash = "sha256:620c56826ff4791c4aaa730ec52aed1f4c74b9c20ea15b9fc1a39bdf99a29a30" },
 ]
 
 [[package]]

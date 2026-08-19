@@ -1,0 +1,8 @@
+openapi: 3.0.3
+info:
+  title: ROTA OPENCORE API
+  version: 0.1.0
+  description: 'The first version of the ROTA OPENCORE API. Note: This is currently
+    in development and is not intended for production use.'
+paths: {}
+components: {}

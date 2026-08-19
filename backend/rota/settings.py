@@ -19,16 +19,14 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(BASE_DIR / ".env.dev")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hjiyq+_c3!5du+kdaxn$2lbr#fwab_ui1^76yyapwe_gy0%u4z'
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 SPECTACULAR_SETTINGS = {
@@ -37,7 +35,7 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '0.1.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
-
+AUTH_USER_MODEL = 'core_auth.User'
 SIMPLE_JWT = {
     # 1. Short access token limits damage if leaked (Expires in 15 mins)
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
