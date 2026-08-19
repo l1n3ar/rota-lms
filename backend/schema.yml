@@ -4,5 +4,324 @@ info:
   version: 0.1.0
   description: 'The first version of the ROTA OPENCORE API. Note: This is currently
     in development and is not intended for production use.'
-paths: {}
-components: {}
+paths:
+  /api/v1/auth/me/:
+    get:
+      operationId: v1_auth_me_retrieve
+      description: |-
+        Allows a user to retrieve or update their profile.
+        This is the only authenticated endpoint accessible without a complete profile.
+      summary: Get Current User Profile
+      tags:
+      - Auth
+      - Profile
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+          description: ''
+    put:
+      operationId: v1_auth_me_update
+      description: |-
+        Allows a user to retrieve or update their profile.
+        This is the only authenticated endpoint accessible without a complete profile.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserProfileUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserProfileUpdate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileUpdate'
+          description: ''
+    patch:
+      operationId: v1_auth_me_partial_update
+      description: Submit first_name and last_name to complete onboarding. Returns
+        a fresh JWT pair with updated claims.
+      summary: Update Profile (Complete Onboarding)
+      tags:
+      - Auth
+      - Profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserProfileUpdate'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+          description: ''
+  /api/v1/auth/otp/request/:
+    post:
+      operationId: v1_auth_otp_request_create
+      description: Sends a short-lived 6-digit OTP code to the provided email address
+        via background worker. If `settings.DEBUG` is enabled, the code is also returned
+        in the response body as `_debug_otp`.
+      summary: Request a 6-digit OTP code
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OTPRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OTPRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OTPRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OTPRequestResponse'
+              examples:
+                ProductionResponse:
+                  value:
+                    detail: OTP sent successfully.
+                  summary: Production Response
+                DebugResponse(DEBUG=True):
+                  value:
+                    detail: OTP sent successfully.
+                    _debug_otp: '482910'
+                  summary: Debug Response (DEBUG=True)
+          description: OTP successfully generated and queued for delivery.
+        '400':
+          description: Invalid email format.
+        '429':
+          description: Rate limit exceeded (Max 5 requests/min).
+  /api/v1/auth/otp/verify/:
+    post:
+      operationId: v1_auth_otp_verify_create
+      description: 'Validates the 6-digit OTP code for a given email. On success,
+        burns the OTP and issues a SimpleJWT access/refresh token pair. Also returns
+        `profile_complete: false` if the user must finish onboarding.'
+      summary: Verify OTP and exchange for JWT tokens
+      tags:
+      - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OTPVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OTPVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OTPVerify'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OTPVerifyResponse'
+              examples:
+                ReturningUser(ProfileComplete):
+                  value:
+                    refresh: eyJhbGciOiJIUzI1NiIsIn...
+                    access: eyJhbGciOiJIUzI1NiIsIn...
+                    profile_complete: true
+                  summary: Returning User (Profile Complete)
+                NewUser(NeedsOnboarding):
+                  value:
+                    refresh: eyJhbGciOiJIUzI1NiIsIn...
+                    access: eyJhbGciOiJIUzI1NiIsIn...
+                    profile_complete: false
+                  summary: New User (Needs Onboarding)
+          description: Authentication successful. Returns JWT pair and profile status.
+        '400':
+          description: Invalid, used, or expired OTP code.
+  /api/v1/auth/token/refresh/:
+    post:
+      operationId: v1_auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+components:
+  schemas:
+    OTPRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    OTPRequestResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+          default: OTP sent successfully.
+        _debug_otp:
+          type: string
+          title: ' debug otp'
+          description: Only present when settings.DEBUG is True
+    OTPVerify:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        code:
+          type: string
+          maxLength: 6
+          minLength: 6
+      required:
+      - code
+      - email
+    OTPVerifyResponse:
+      type: object
+      properties:
+        refresh:
+          type: string
+        access:
+          type: string
+        profile_complete:
+          type: boolean
+          description: If false, frontend must route user to profile onboarding.
+      required:
+      - access
+      - profile_complete
+      - refresh
+    PatchedUserProfileUpdate:
+      type: object
+      description: |-
+        Validates first and last name updates.
+        Both fields are required for the profile to be considered complete.
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+          minLength: 2
+        last_name:
+          type: string
+          maxLength: 150
+          minLength: 2
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    UserProfileResponse:
+      type: object
+      description: Formats the response, including the newly minted tokens.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        profile_complete:
+          type: boolean
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+        access:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - id
+      - profile_complete
+      - refresh
+    UserProfileUpdate:
+      type: object
+      description: |-
+        Validates first and last name updates.
+        Both fields are required for the profile to be considered complete.
+      properties:
+        first_name:
+          type: string
+          maxLength: 150
+          minLength: 2
+        last_name:
+          type: string
+          maxLength: 150
+          minLength: 2
+      required:
+      - first_name
+      - last_name
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
