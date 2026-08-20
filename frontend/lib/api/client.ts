@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { ENDPOINTS } from "./endpoints";
+import { ApiResponse } from "@/types/api";
 
 class ApiClient {
 
@@ -16,6 +17,13 @@ class ApiClient {
             params: config.params,
             headers: config.headers,
             body: config.data,
+        });
+    }
+
+    private logResponse(endpoint: keyof typeof ENDPOINTS, response: any) {
+        console.log(`[API RESPONSE] ${endpoint}`, {
+            status: response.status,
+            data: response.data
         });
     }
 }

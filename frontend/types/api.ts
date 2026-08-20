@@ -9,5 +9,6 @@ export interface ApiResponse {
     data: any
     client_msg?: string // might not need to show all the time 
     dev_msg?: string // prolly use it only for dev
+    status? : number
 
 }
