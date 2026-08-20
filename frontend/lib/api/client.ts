@@ -3,6 +3,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { ApiEndpoint, ApiResponse } from "@/types/api";
 import { getCookie } from "./utils";
+import { logger } from "@/lib/logger";
 
 export class ApiClient {
 
