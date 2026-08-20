@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
-import { ENDPOINTS } from "./endpoints";
+import { ApiEndpoint } from "@/types/api";
 
-export const logRequest = (endpoint: keyof typeof ENDPOINTS, config: AxiosRequestConfig) => {
+export const logRequest = (endpoint: ApiEndpoint, config: AxiosRequestConfig) => {
     console.log(`[API REQUEST] ${endpoint}`, {
         method: config.method,
         url: config.url,
@@ -11,9 +11,18 @@ export const logRequest = (endpoint: keyof typeof ENDPOINTS, config: AxiosReques
     });
 }
 
-export const logResponse = (endpoint: keyof typeof ENDPOINTS, response: any) => {
+export const logResponse = (endpoint: ApiEndpoint, response: any) => {
     console.log(`[API RESPONSE] ${endpoint}`, {
         status: response.status,
         data: response.data
     });
 }
+
+export const logError = (endpoint: ApiEndpoint, error: any) =>  {
+    console.log(`[API ERROR] ${endpoint}`, {
+      status : error.status,
+      message: error.message,
+      stack: error.stack,
+      response: error.response?.data,
+    });
+  }

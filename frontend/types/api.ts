@@ -1,6 +1,9 @@
-export interface ApiEndpoint {
+export interface ApiEndpoint<
+    TPathParams extends Record<string, string | number> = Record<string, never>,
+    TQueryParams extends Record<string, any> = Record<string, never>
+> {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-    path: string;
+    path: string | ((params: TPathParams) => string);
     requiresAuth?: boolean; //mostly will be true all the time
 }
 
