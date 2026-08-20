@@ -1,28 +1,9 @@
-import { AxiosRequestConfig } from "axios";
-import { ApiEndpoint } from "@/types/api";
+'use server'
 
-export const logRequest = (endpoint: ApiEndpoint, config: AxiosRequestConfig) => {
-    console.log(`[API REQUEST] ${endpoint}`, {
-        method: config.method,
-        url: config.url,
-        params: config.params,
-        headers: config.headers,
-        body: config.data,
-    });
+import { COOKIE_KEYS } from "@/types/auth"
+import { cookies } from "next/headers"
+
+export const getCookie = async (key: COOKIE_KEYS) => {
+    const cookieStore = await cookies()
+    return cookieStore.get(key)?.value || null
 }
-
-export const logResponse = (endpoint: ApiEndpoint, response: any) => {
-    console.log(`[API RESPONSE] ${endpoint}`, {
-        status: response.status,
-        data: response.data
-    });
-}
-
-export const logError = (endpoint: ApiEndpoint, error: any) =>  {
-    console.log(`[API ERROR] ${endpoint}`, {
-      status : error.status,
-      message: error.message,
-      stack: error.stack,
-      response: error.response?.data,
-    });
-  }
