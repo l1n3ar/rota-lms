@@ -24,9 +24,9 @@ export class ApiClient {
         }
     ): Promise<ApiResponse> {
 
-        const token = await getCookie('access_token') //assuming we are gonna be storing it in cookies
+        const accessToken = await getCookie('access_token') //assuming we are gonna be storing it in cookies
 
-        if (endpoint.requiresAuth && !token) {
+        if (endpoint.requiresAuth && !accessToken) {
             //need an err handler or reroute to login here
         }
 
@@ -40,7 +40,7 @@ export class ApiClient {
             method: endpoint.method,
             params: options?.queryParams,
             data: options?.body,
-            headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+            headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : undefined,
         }
 
         try {
