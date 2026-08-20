@@ -18,4 +18,4 @@ export const TICKET_ENDPOINTS = {
 
     CREATE_TICKET: { method: 'POST', path: `${TICKET_ROUTE_PREFIX}/create/`, requiresAuth: true },
 
-} 
+} as const
