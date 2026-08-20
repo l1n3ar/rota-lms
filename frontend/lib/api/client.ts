@@ -2,8 +2,7 @@
 
 import axios, { AxiosRequestConfig } from "axios";
 import { ApiEndpoint, ApiResponse } from "@/types/api";
-import { getCookie } from "@/actions/auth";
-import { logRequest } from "./utils";
+import { getCookie } from "./utils";
 
 export class ApiClient {
 
