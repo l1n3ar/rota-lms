@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { ENDPOINTS } from "./endpoints";
-import { ApiEndpoint, ApiResponse } from "@/types/api";
-import { getAuthTokenFromCookies } from "@/actions/auth";
+
+
+import { ApiEndpoint } from "@/types/api";
+import { getCookie } from "@/actions/auth";
 
 export class ApiClient {
 
@@ -19,7 +19,7 @@ export class ApiClient {
         body?: any
     ) {
 
-        const token = await getAuthTokenFromCookies() //assuming we are gonna be storing it in cookies
+        const token = await getCookie('access_token') //assuming we are gonna be storing it in cookies
 
         if (endpoint.requiresAuth && !token){
             //raise err here

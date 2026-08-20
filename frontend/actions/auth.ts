@@ -1,8 +1,10 @@
 'use server'
 
+import { COOKIE_KEYS } from "@/types/auth"
 import { cookies } from "next/headers"
 
-export const getAuthTokenFromCookies = async () => {
+
+export const getCookie = async (key : COOKIE_KEYS) => {
     const cookieStore = await cookies()
-    return cookieStore.get("access_token")?.value || null
+    return cookieStore.get(key)?.value || null
 }
