@@ -1,8 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { ENDPOINTS } from "./endpoints";
-import { ApiResponse } from "@/types/api";
+import { ApiEndpoint, ApiResponse } from "@/types/api";
+import { getAuthTokenFromCookies } from "@/actions/auth";
 
-class ApiClient {
+export class ApiClient {
 
     private baseURL: string;
 
@@ -10,20 +11,21 @@ class ApiClient {
         this.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || ''
     }
 
-    private logRequest(endpoint: keyof typeof ENDPOINTS, config: AxiosRequestConfig) {
-        console.log(`[API REQUEST] ${endpoint}`, {
-            method: config.method,
-            url: config.url,
-            params: config.params,
-            headers: config.headers,
-            body: config.data,
-        });
-    }
 
-    private logResponse(endpoint: keyof typeof ENDPOINTS, response: any) {
-        console.log(`[API RESPONSE] ${endpoint}`, {
-            status: response.status,
-            data: response.data
-        });
+    async call(
+        endpoint: ApiEndpoint,
+        pathParams?: Record<string, any>,
+        queryParams?: Record<string, any>,
+        body?: any
+    ) {
+
+        const token = await getAuthTokenFromCookies() //assuming we are gonna be storing it in cookies
+
+        if (endpoint.requiresAuth && !token){
+            //raise err here
+        }
+
+        
     }
 }
+
