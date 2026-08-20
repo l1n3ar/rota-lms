@@ -200,8 +200,141 @@ paths:
               schema:
                 $ref: '#/components/schemas/TokenRefresh'
           description: ''
+  /api/v1/ticket/:
+    get:
+      operationId: v1_ticket_list
+      description: Returns all tickets created by the authenticated user. Includes
+        ticket_id, title, status, and last comment date.
+      summary: List user tickets
+      tags:
+      - Ticket
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TicketList'
+          description: ''
+  /api/v1/ticket/{ticket_id}/:
+    get:
+      operationId: v1_ticket_retrieve
+      description: Retrieve a ticket by ticket_id if it belongs to the authenticated
+        user. Returns title, issue_description, created_date, and all comments.
+      summary: Retrieve ticket details
+      parameters:
+      - in: path
+        name: ticket_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Ticket
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDetail'
+          description: ''
+  /api/v1/ticket/{ticket_id}/comment/:
+    post:
+      operationId: v1_ticket_comment_create
+      description: Authenticated users can add a comment to their own ticket by providing
+        text and optional attachment.
+      summary: Add a comment to a ticket
+      parameters:
+      - in: path
+        name: ticket_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Ticket
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: ''
+  /api/v1/ticket/create/:
+    post:
+      operationId: v1_ticket_create_create
+      description: Authenticated users can create a ticket by providing title and
+        issue_description. The ticket_id is generated automatically.
+      summary: Create a new ticket
+      tags:
+      - Ticket
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDetail'
+          description: ''
 components:
   schemas:
+    Comment:
+      type: object
+      description: Serializer for comments.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        user:
+          type: string
+          readOnly: true
+        text:
+          type: string
+          maxLength: 1000
+        created_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        attachment:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - created_date
+      - id
+      - text
+      - user
     OTPRequest:
       type: object
       properties:
@@ -261,6 +394,69 @@ components:
           type: string
           maxLength: 150
           minLength: 2
+    TicketCreate:
+      type: object
+      description: |-
+        Used for creating tickets (only title + issue_description).
+        The user is set from JWT automatically.
+      properties:
+        title:
+          type: string
+          maxLength: 110
+        issue_description:
+          type: string
+          maxLength: 1000
+      required:
+      - issue_description
+      - title
+    TicketDetail:
+      type: object
+      description: Detailed view of a ticket with all comments.
+      properties:
+        ticket_id:
+          type: string
+          maxLength: 8
+        title:
+          type: string
+          maxLength: 110
+        issue_description:
+          type: string
+          maxLength: 1000
+        created_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+          readOnly: true
+      required:
+      - comments
+      - created_date
+      - issue_description
+      - title
+    TicketList:
+      type: object
+      description: |-
+        List tickets for the authenticated user.
+        Includes last comment date.
+      properties:
+        ticket_id:
+          type: string
+          maxLength: 8
+        title:
+          type: string
+          maxLength: 110
+        completed_status:
+          type: boolean
+        last_comment_date:
+          type: string
+          readOnly: true
+      required:
+      - last_comment_date
+      - title
     TokenRefresh:
       type: object
       properties:
