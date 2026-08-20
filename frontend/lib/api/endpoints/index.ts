@@ -1,6 +1,7 @@
-import { ApiEndpoint } from "@/types/api";
 import { AUTH_ENDPOINTS } from "./auth";
+import { TICKET_ENDPOINTS } from "./tickets";
 
-export const ENDPOINTS : Record<string, Record<string, ApiEndpoint>> = {
-    AUTH : {...AUTH_ENDPOINTS}
+export const ENDPOINTS  = {
+    AUTH : {...AUTH_ENDPOINTS},
+    TICKET : {...TICKET_ENDPOINTS}
 }

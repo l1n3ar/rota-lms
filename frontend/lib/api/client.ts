@@ -3,6 +3,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { ApiEndpoint, ApiResponse } from "@/types/api";
 import { getCookie } from "@/actions/auth";
+import { logRequest } from "./utils";
 
 export class ApiClient {
 
@@ -14,13 +15,12 @@ export class ApiClient {
 
 
     async call<
-        TPathParams extends Record<string, string | number> = Record<string, never>,
-        TQueryParams extends Record<string, any> = Record<string, never>
+        TPathParams extends Record<string, string | number> 
     >(
-        endpoint: ApiEndpoint<TPathParams, TQueryParams>,
+        endpoint: ApiEndpoint<TPathParams>,
         options?: {
             pathParams?: TPathParams
-            queryParams?: TQueryParams
+            queryParams?: Record<string, any>
             body?: any
         }
     ): Promise<ApiResponse> {
@@ -45,6 +45,7 @@ export class ApiClient {
         }
 
         try {
+  
             const response = await axios.request<ApiResponse>(config)
             return { ...response.data, status: response.status }
         } catch (err) {

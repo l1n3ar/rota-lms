@@ -1,6 +1,5 @@
 export interface ApiEndpoint<
-    TPathParams extends Record<string, string | number> = Record<string, never>,
-    TQueryParams extends Record<string, any> = Record<string, never>
+    TPathParams extends Record<string, string | number> = Record<string, never>
 > {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
     path: string | ((params: TPathParams) => string);
