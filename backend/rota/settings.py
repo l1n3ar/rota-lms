@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     # Local Apps
     'core_auth.apps.CoreAuthConfig',
+    'ticket.apps.TicketConfig',
 ]
 
 MIDDLEWARE = [

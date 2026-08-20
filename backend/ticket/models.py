@@ -1,7 +1,7 @@
 import bleach
 from bleach.sanitizer import ALLOWED_TAGS
 from django.db import models
-from accounts.models import User
+from core_auth.models import User
 from django.urls import reverse
 from django.utils.crypto import get_random_string
 from utils.validator import validate_attachment
