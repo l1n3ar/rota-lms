@@ -2,9 +2,7 @@
 
 import axios, { AxiosRequestConfig } from "axios";
 import { ApiEndpoint, ApiResponse } from "@/types/api";
-import { getCookie } from "./utils";
-import { logger } from "@/lib/logger";
-
+import { getCookie, logError, logRequest, logResponse } from "./utils";
 export class ApiClient {
 
     private baseURL: string;
@@ -15,7 +13,7 @@ export class ApiClient {
 
 
     async call<
-        TPathParams extends Record<string, string | number> 
+        TPathParams extends Record<string, string | number>
     >(
         endpoint: ApiEndpoint<TPathParams>,
         options?: {
@@ -45,10 +43,18 @@ export class ApiClient {
         }
 
         try {
-  
+
+            logRequest(config)
+
             const response = await axios.request<ApiResponse>(config)
+
+            logResponse(response)
+
             return { ...response.data, status: response.status }
+
         } catch (err) {
+            logError(err)
+
             if (axios.isAxiosError(err) && err.response) {
                 return { ...err.response.data, status: err.response.status }
             }
