@@ -99,6 +99,7 @@ INSTALLED_APPS = [
     # Local Apps
     'core_auth.apps.CoreAuthConfig',
     'ticket.apps.TicketConfig',
+    'course.apps.CourseConfig',
 ]
 
 MIDDLEWARE = [

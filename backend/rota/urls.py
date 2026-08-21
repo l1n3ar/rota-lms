@@ -22,4 +22,5 @@ urlpatterns = [
     # Other endpoints
     path('api/v1/auth/', include("core_auth.api.v1.urls")),
     path('api/v1/ticket/', include("ticket.api.v1.urls")),
+    path('api/v1/course/', include("course.api.v1.urls")),
 ]
