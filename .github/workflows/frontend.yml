@@ -23,18 +23,16 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: 'frontend/package-lock.json'
+          bun-version: 'latest' # Or pin to a specific version like '1.1.0'
 
       - name: Install dependencies
-        run: npm ci
+        run: bun install
 
       - name: Run Linter
-        run: npm run lint
+        run: bun run lint
 
       - name: Build Application
-        run: npm run build
+        run: bun run build
