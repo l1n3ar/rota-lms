@@ -27,6 +27,7 @@ DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key")
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 EMAIL_SANDBOX = os.getenv("EMAIL_SANDBOX", "True").lower() == "true"
+USE_API_ENVELOPE = os.getenv('USE_API_ENVELOPE', 'False').lower() in ('true', '1', 't', 'yes')
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'ROTA OPENCORE API',
@@ -63,6 +64,20 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
 }
+
+# 3. Conditionally add the renderers
+if USE_API_ENVELOPE:
+    # Custom enveloped format for the frontend dev
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rota.renderers.EnvelopeJSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
+else:
+    # Standard standard DRF normal format
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
 # Application definition
 
 INSTALLED_APPS = [
@@ -152,7 +167,6 @@ else:
         }
     }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
 
@@ -171,7 +185,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
@@ -182,7 +195,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
@@ -228,7 +240,6 @@ if USE_S3:
     WHITENOISE_AUTOREFRESH = True
     WHITENOISE_MAX_AGE = 0
 
-
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
@@ -247,4 +258,3 @@ LOGGING = {
     "handlers": {"console": {"class": "logging.StreamHandler"}},
     "root": {"handlers": ["console"], "level": "INFO"},
 }
-
