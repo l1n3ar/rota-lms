@@ -18,8 +18,8 @@ export class ApiClient {
         endpoint: ApiEndpoint<TPathParams>,
         options?: {
             pathParams?: TPathParams
-            queryParams?: Record<string, any>
-            body?: any
+            queryParams?: Record<string, unknown>
+            body?: Record<string, unknown>
         }
     ): Promise<ApiResponse> {
 
