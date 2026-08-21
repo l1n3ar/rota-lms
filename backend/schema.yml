@@ -203,8 +203,8 @@ paths:
   /api/v1/ticket/:
     get:
       operationId: v1_ticket_list
-      description: Returns all tickets created by the authenticated user. Includes
-        ticket_id, title, status, and last comment date.
+      description: Returns all tickets. Superusers see all tickets in the system.
+        Regular users only see tickets they created.
       summary: List user tickets
       tags:
       - Ticket
@@ -222,9 +222,9 @@ paths:
   /api/v1/ticket/{ticket_id}/:
     get:
       operationId: v1_ticket_retrieve
-      description: Retrieve a ticket by ticket_id if it belongs to the authenticated
-        user. Returns title, issue_description, created_date, and all comments.
-      summary: Retrieve ticket details
+      description: Retrieve a ticket by ticket_id. Superusers can access and update
+        ANY ticket. Regular users can only access their own.
+      summary: Retrieve or update ticket details
       parameters:
       - in: path
         name: ticket_id
@@ -233,6 +233,73 @@ paths:
         required: true
       tags:
       - Ticket
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDetail'
+          description: ''
+    put:
+      operationId: v1_ticket_update
+      description: Retrieve a ticket by ticket_id. Superusers can access and update
+        ANY ticket. Regular users can only access their own.
+      summary: Retrieve or update ticket details
+      parameters:
+      - in: path
+        name: ticket_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Ticket
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TicketDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TicketDetail'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketDetail'
+          description: ''
+    patch:
+      operationId: v1_ticket_partial_update
+      description: Retrieve a ticket by ticket_id. Superusers can access and update
+        ANY ticket. Regular users can only access their own.
+      summary: Retrieve or update ticket details
+      parameters:
+      - in: path
+        name: ticket_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Ticket
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTicketDetail'
       security:
       - jwtAuth: []
       responses:
@@ -380,6 +447,29 @@ components:
       - access
       - profile_complete
       - refresh
+    PatchedTicketDetail:
+      type: object
+      description: Detailed view of a ticket with all comments.
+      properties:
+        ticket_id:
+          type: string
+          maxLength: 8
+        title:
+          type: string
+          maxLength: 110
+        issue_description:
+          type: string
+          maxLength: 1000
+        created_date:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Comment'
+          readOnly: true
     PatchedUserProfileUpdate:
       type: object
       description: |-

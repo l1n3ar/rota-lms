@@ -24,8 +24,8 @@ class TicketCreateView(generics.CreateAPIView):
 @extend_schema(
     tags=["Ticket"],
     summary="List user tickets",
-    description="Returns all tickets created by the authenticated user. "
-                "Includes ticket_id, title, status, and last comment date.",
+    description="Returns all tickets. Superusers see all tickets in the system. "
+                "Regular users only see tickets they created.",
     responses={200: TicketListSerializer(many=True)},
 )
 class TicketListView(generics.ListAPIView):
@@ -34,23 +34,30 @@ class TicketListView(generics.ListAPIView):
 
     def get_queryset(self):
         request_user = self.request.user
+        # Superusers can see every ticket
         if request_user.is_superuser:
             return Ticket.objects.all()
-        else:
-            return Ticket.objects.filter(user=request_user)
+        # Regular users only see their own
+        return Ticket.objects.filter(user=request_user)
 
 
 @extend_schema(
     tags=["Ticket"],
-    summary="Retrieve ticket details",
-    description="Retrieve a ticket by ticket_id if it belongs to the authenticated user. "
-                "Returns title, issue_description, created_date, and all comments.",
+    summary="Retrieve or update ticket details",
+    description="Retrieve a ticket by ticket_id. Superusers can access and update ANY ticket. "
+                "Regular users can only access their own.",
     responses={200: TicketDetailSerializer},
 )
-class TicketDetailView(generics.RetrieveAPIView):
+# Changed to RetrieveUpdateAPIView so superusers can send PATCH/PUT requests to respond/update
+class TicketDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = TicketDetailSerializer
     permission_classes = [permissions.IsAuthenticated]
     lookup_field = "ticket_id"
 
     def get_queryset(self):
-        return Ticket.objects.filter(user=self.request.user)
+        user = self.request.user
+        # Allow superusers to query ANY ticket so they can view and update it
+        if user.is_superuser:
+            return Ticket.objects.all()
+        # Restrict regular users to only their own tickets
+        return Ticket.objects.filter(user=user)
