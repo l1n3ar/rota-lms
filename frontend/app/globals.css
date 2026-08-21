@@ -48,6 +48,8 @@
     --radius-2xl: calc(var(--radius) * 2);
     --radius-3xl: calc(var(--radius) * 2.4);
     --radius-4xl: calc(var(--radius) * 2.8);
+
+    /* ---- Spacing (Variables Design Sheet — 4px base unit) ---- */
     --spacing-1x: var(--size-1x);
     --spacing-2x: var(--size-2x);
     --spacing-3x: var(--size-3x);
@@ -58,10 +60,9 @@
     --spacing-8x: var(--size-8x);
     --spacing-9x: var(--size-9x);
     --spacing-10x: var(--size-10x);
-}
 
-:root {
-    /* ---- Figma "New group / Primary" scale (Colors, Variables Design Sheet) ---- */
+    /* ---- Figma "New group / Primary" color scale ---- */
+    --color-primary-0: #ffffff;
     --color-primary-50: #f4ffe6;
     --color-primary-100: #eaffcc;
     --color-primary-150: #dfffb3;
@@ -79,6 +80,7 @@
 
     /* ---- Figma "Pure colors" ---- */
     --color-blue: #007aff;
+    --color-pure-blue-20: #007aff33;
     --color-purple: #5856d6;
     --color-success: #34c759;
     --color-warning: #ff9500;
@@ -87,8 +89,8 @@
     /* ---- Figma Variables (Ungrouped collection, verbatim) ---- */
     --color-slate-500: rgb(98, 116, 142);
     --color-slate-950: rgb(2, 6, 24);
-    --font-lato: "Lato", system-ui, sans-serif;
-    --font-mono: "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+
+    /* ---- Font weight ---- */
     --font-weight-thin: 100;
     --font-weight-extralight: 200;
     --font-weight-light: 300;
@@ -98,35 +100,43 @@
     --font-weight-bold: 700;
     --font-weight-extrabold: 800;
     --font-weight-black: 900;
-    --font-size-xs: 0.75rem;    /* 12 */
-    --font-size-sm: 0.875rem;   /* 14 */
-    --font-size-base: 1rem;     /* 16 */
-    --font-size-lg: 1.125rem;   /* 18 */
-    --font-size-xl: 1.25rem;    /* 20 */
-    --font-size-2xl: 1.5rem;    /* 24 */
-    --font-size-3xl: 1.875rem;  /* 30 */
-    --font-size-4xl: 2.25rem;   /* 36 */
-    --font-size-5xl: 3rem;      /* 48 */
-    --font-size-6xl: 3.75rem;   /* 60 */
-    --font-size-7xl: 4.5rem;    /* 72 */
-    --font-size-8xl: 6rem;      /* 96 */
-    --font-size-9xl: 8rem;      /* 128 */
-    --font-leading-4: 1rem;      /* 16 */
-    --font-leading-5: 1.25rem;   /* 20 */
-    --font-leading-6: 1.5rem;    /* 24 */
-    --font-leading-7: 1.75rem;   /* 28 */
-    --font-leading-8: 2rem;      /* 32 */
-    --font-leading-9: 2.25rem;   /* 36 */
-    --font-leading-10: 2.5rem;   /* 40 */
-    --font-tracking-normal: 0em;
-    --spacing-2: 0.5rem; /* 8 */
 
-    /* ---- Letter-spacing demo values from the Variables Design Sheet ---- */
+    /* ---- Font size + line-height (Figma "Font Size" / "Line Height" tables) ---- */
+    --text-2xs: 0.625rem;       /* 10 */
+    --text-2xs--line-height: 1rem;        /* 16 */
+    --text-xs: 0.75rem;        /* 12 */
+    --text-xs--line-height: 1.25rem;      /* 20 */
+    --text-sm: 0.875rem;       /* 14 */
+    --text-sm--line-height: 1.5rem;       /* 24 */
+    --text-md: 1rem;           /* 16 */
+    --text-md--line-height: 1.75rem;      /* 28 */
+    --text-lg: 1.125rem;       /* 18 */
+    --text-lg--line-height: 2rem;         /* 32 */
+    --text-xl: 1.25rem;        /* 20 */
+    --text-xl--line-height: 2.25rem;      /* 36 */
+    --text-2xl: 1.5rem;        /* 24 */
+    --text-2xl--line-height: 2.5rem;      /* 40 */
+    --text-3xl: 1.75rem;       /* 28 */
+    --text-3xl--line-height: 2.75rem;     /* 44 */
+    --text-huge: 2rem;         /* 32 */
+    --text-huge--line-height: 3.25rem;    /* 52 */
+    --text-giant: 2.25rem;     /* 36 */
+    --text-giant--line-height: 4rem;      /* 64 */
+    --text-enormous: 2.5rem;   /* 40 — no paired line-height in the Figma sheet, following Tailwind's own convention for its largest sizes */
+    --text-enormous--line-height: 1;
+
+    /* ---- Letter spacing (Figma "Letter Spacing" table) ---- */
+    --tracking-heading: 0em;
     --tracking-title: 0.15px;
     --tracking-paragraph: 0.5px;
     --tracking-label: 0.25px;
+}
 
-    /* ---- Size / Spacing / Padding scale (Variables Design Sheet — 4px base unit) ---- */
+:root {
+    --font-lato: "Lato", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+
+    /* ---- Size scale (Variables Design Sheet — 4px base unit) ---- */
     --size-1x: 0.25rem;  /* 4 */
     --size-2x: 0.5rem;   /* 8 */
     --size-3x: 0.75rem;  /* 12 */
@@ -137,6 +147,7 @@
     --size-8x: 2rem;     /* 32 */
     --size-9x: 2.25rem;  /* 36 */
     --size-10x: 2.5rem;  /* 40 */
+
     --background: #ffffff;
     --foreground: var(--color-slate-950);
     --card: #ffffff;
