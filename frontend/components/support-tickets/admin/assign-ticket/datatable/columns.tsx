@@ -3,7 +3,7 @@
 import { createColumnHelper } from "@tanstack/react-table"
 
 import { type DataTableFeatures } from './features'
-import { AssignableAdmin, MapDBRoleToUserFacingRole, MapDBStatusToUserFacingStatus } from "@/types/user"
+import { AssignableAdmin, MapDBRoleToUserFacingRole } from "@/types/user"
 import { AdminActionsCell } from "./actions"
 import UserStatusBadge from "@/components/user/user-status-badge"
 

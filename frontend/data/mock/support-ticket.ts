@@ -5,7 +5,7 @@ export const mockSupportTickets: SupportTicket[] = [
     id: "TCK-1001",
     category: "Billing",
     subject: "Unable to update payment method",
-    priority: "high",
+    priority: 'high',
     created_by: {
       first_name: "Ravi",
       last_name: "Shah",
@@ -22,7 +22,7 @@ export const mockSupportTickets: SupportTicket[] = [
     id: "TCK-1002",
     category: "Course Access",
     subject: "Enrolled course not showing up in dashboard",
-    priority: "moderate",
+    priority: "medium",
     created_by: {
       first_name: "Meera",
       last_name: "Iyer",
