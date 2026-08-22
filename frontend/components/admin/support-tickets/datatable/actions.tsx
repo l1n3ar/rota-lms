@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 
 import { SupportTicket } from "@/types/support-ticket"
 import { MessageSquarePlus, MessagesSquare, UserPlus } from "lucide-react"
+import AssignTicketDialog from "../assign-ticket/assign-ticket-dialog"
 
 
 
@@ -19,33 +20,35 @@ export function TicketActionsCell({ ticket }: { ticket: SupportTicket }) {
   }
 
   return (
+    <>
+      <div className="flex items-center text-muted-foreground">
+        <Tooltip>
+          <TooltipTrigger render={
+            <Button variant="ghost" size='icon-sm' onClick={handleAssignment}>
+              <UserPlus className="size-3.5" />
+            </Button>
+          }
+          />
+          <TooltipContent>
+            <p>Assign</p>
+          </TooltipContent>
+        </Tooltip>
 
-    <div className="flex items-center text-muted-foreground">
-      <Tooltip>
-        <TooltipTrigger render={
-          <Button variant="ghost" size='icon-sm' onClick={handleAssignment}>
-            <UserPlus className="size-3.5" />
-          </Button>
-        }
-        />
-        <TooltipContent>
-          <p>Assign</p>
-        </TooltipContent>
-      </Tooltip>
+        <Tooltip>
+          <TooltipTrigger render={
+            <Button variant="ghost" size='icon-sm' onClick={handleAddComment}>
+              <MessagesSquare className="size-3.5" />
+            </Button>
+          }
+          />
+          <TooltipContent>
+            <p>Add comment</p>
+          </TooltipContent>
+        </Tooltip>
 
-      <Tooltip>
-        <TooltipTrigger render={
-          <Button variant="ghost" size='icon-sm' onClick={handleAddComment}>
-            <MessagesSquare className="size-3.5" />
-          </Button>
-        }
-        />
-        <TooltipContent>
-          <p>Add comment</p>
-        </TooltipContent>
-      </Tooltip>
+      </div>
 
-    </div>
-
+      <AssignTicketDialog />
+    </>
   )
 }
