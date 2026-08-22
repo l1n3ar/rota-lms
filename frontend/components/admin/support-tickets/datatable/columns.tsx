@@ -9,8 +9,6 @@ import { TicketActionsCell } from "./actions"
 import PriorityBadge from "../priority-badge"
 import { MapDBRoleToUserFacingRole } from "@/types/user"
 
-
-
 const columnHelper = createColumnHelper<DataTableFeatures, SupportTicket>()
 
 export const columns = columnHelper.columns([
@@ -40,7 +38,7 @@ export const columns = columnHelper.columns([
     header: "Subject",
     cell: (info) => {
       return (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <span>{info.getValue()}</span>
           <PriorityBadge priority={info.row.original.priority} />
         </div>
@@ -80,6 +78,7 @@ export const columns = columnHelper.columns([
       )
     },
   }),
+
   columnHelper.display({
     id: "actions",
     header: "Actions",
