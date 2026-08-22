@@ -30,7 +30,7 @@ const SupportTicketContent = ({ ticket }: SupportTicketContentProps) => {
   }
 
   return (
-    <div className='flex flex-col gap-4 max-h-100 overflow-y-auto scrollbar-thin'>
+    <div className='flex flex-col gap-4 h-100 overflow-y-auto scrollbar-thin'>
       {groups.map((group) => {
         const isStaff = group[0].author.id === ticket.assignee?.id
         const align = isStaff ? 'end' : 'start'

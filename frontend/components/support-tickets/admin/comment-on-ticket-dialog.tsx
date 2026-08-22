@@ -20,11 +20,11 @@ const CommentOnTicketDialog = ({ ticket, open, onOpenChange }: CommentOnTicketDi
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent size="3xl">
-        <DialogHeader>
+        <DialogHeader className="mb-8x">
           <SupportTicketHeader ticket={ticket} />
           {/* <Separator className="mt-2" /> */}
         </DialogHeader>
-
+        
         <SupportTicketContent ticket={ticket} />
         <SupportTicketCommentBox ticket={ticket} />
       </DialogContent>
