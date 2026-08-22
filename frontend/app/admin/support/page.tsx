@@ -1,4 +1,4 @@
-import { SupportTicketsTable } from '@/components/admin/support-tickets/datatable/table'
+import { SupportTicketsTable } from '@/components/support-tickets/admin/datatable/table'
 import { Button } from '@/components/ui/button'
 import { InputGroup, InputGroupInput, InputGroupAddon } from '@/components/ui/input-group'
 import { ListFilter, Search } from 'lucide-react'
