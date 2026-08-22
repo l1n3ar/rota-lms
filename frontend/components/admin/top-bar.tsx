@@ -15,7 +15,7 @@ const AdminTopBar = () => {
             <div className='flex items-center gap-4'>
                 <Button className='rounded-full p-4x shrink-0' size='icon-xl' variant='outline'><TextAlignStart /></Button>
                 <div className='flex flex-col'>
-                    <span className='text-2xl leading-none'>Hello Hossein</span>
+                    <span className='text-2xl leading-none'>Hello Mehul 👋</span>
                     <span className='text-xs text-neutral-500'>Let's learn something new today!</span>
 
                 </div>
