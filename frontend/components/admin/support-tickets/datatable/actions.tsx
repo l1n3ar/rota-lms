@@ -1,18 +1,22 @@
 "use client"
 
+import { useState } from "react"
+
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Button } from "@/components/ui/button"
 
 import { SupportTicket } from "@/types/support-ticket"
-import { MessageSquarePlus, MessagesSquare, UserPlus } from "lucide-react"
+import { MessagesSquare, UserPlus } from "lucide-react"
 import AssignTicketDialog from "../assign-ticket/assign-ticket-dialog"
 
 
 
 export function TicketActionsCell({ ticket }: { ticket: SupportTicket }) {
 
-  const handleAssignment = () => {
+  const [assignDialogOpen, setAssignDialogOpen] = useState(false)
 
+  const handleAssignment = () => {
+    setAssignDialogOpen(true)
   }
 
   const handleAddComment = () => {
@@ -48,7 +52,11 @@ export function TicketActionsCell({ ticket }: { ticket: SupportTicket }) {
 
       </div>
 
-      <AssignTicketDialog />
+      <AssignTicketDialog
+        ticket={ticket}
+        open={assignDialogOpen}
+        onOpenChange={setAssignDialogOpen}
+      />
     </>
   )
 }
