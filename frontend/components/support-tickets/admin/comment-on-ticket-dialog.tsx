@@ -1,11 +1,8 @@
 "use client"
 
-import { useState } from "react"
 
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Separator } from "@/components/ui/separator"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
 import { SupportTicket } from "@/types/support-ticket"
 import SupportTicketHeader from "../support-ticket-header"
 import SupportTicketContent from "../support-ticket-content"

@@ -11,7 +11,7 @@ export function AdminActionsCell({ admin }: { admin: AssignableAdmin }) {
     }
 
     return (
-        <Button size="sm" variant="outline" className='rounded-full flex items-center gap-1' onClick={handleAssign}>
+        <Button size="sm" variant="outline" className='rounded-full flex items-center gap-1' onClick={handleAssign} id = {admin.id}>
             <span>Assign</span>
             <ArrowRight />
         </Button>

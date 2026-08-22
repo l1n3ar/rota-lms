@@ -9,7 +9,9 @@ interface SupportTicketHeaderCardProps {
     className?: string
 }
 
-const SupportTicketHeaderCard = ({ title, icon: Icon, content, className }: SupportTicketHeaderCardProps) => {
+const SupportTicketHeaderCard = ({ title, content, className }: SupportTicketHeaderCardProps) => {
+
+    
     return (
         <div className={cn('p-4 rounded-xl flex flex-col bg-card ', className)}>
             <span className='flex items-center gap-1 text-xs text-muted-foreground'>

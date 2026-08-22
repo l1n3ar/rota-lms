@@ -11,14 +11,17 @@ interface AssignTicketDialogProps {
 }
 
 const AssignTicketDialog = ({ ticket, open, onOpenChange }: AssignTicketDialogProps) => {
+
+
+  
   return (
     <Dialog open={open} onOpenChange={onOpenChange} >
-      <DialogContent size='3xl'>
+      <DialogContent size='3xl' id={ticket.id}>
         <DialogHeader >
           <DialogTitle>Assign ticket</DialogTitle>
           <Separator className='mt-2'/>
         </DialogHeader>
-
+          
           <AssignTicketAdminTable data={mockAssignableAdmins}/>
       </DialogContent>
     </Dialog>

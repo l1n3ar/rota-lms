@@ -25,7 +25,6 @@ export function DataTable<TFeatures extends TableFeatures, TData extends RowData
   columns,
   data,
   alternateRowColours = true,
-  isLoading = false
 }: DataTableProps<TFeatures, TData>) {
   const table = useTable({
     features,

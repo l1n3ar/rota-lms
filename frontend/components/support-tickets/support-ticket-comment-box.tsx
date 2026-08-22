@@ -15,7 +15,7 @@ const SupportTicketCommentBox = ({ ticket }: SupportTicketCommentBoxProps) => {
     const [showSuggestion, setShowSuggestion] = useState(true)
 
     return (
-        <div>
+        <div id={ticket.id}>
 
             <div
                 className={cn(
@@ -27,8 +27,8 @@ const SupportTicketCommentBox = ({ ticket }: SupportTicketCommentBoxProps) => {
                     <div id='suggestions' className='w-full rounded-t-lg px-4 py-1 text-xs flex items-center justify-between gap-2 bg-foreground/5 hover:cursor-pointer hover:bg-foreground/10 transition-colors'>
                         <div className='flex items-center gap-2'>
                             <ReplyAll className='rotate-y-180 size-3' />
-                           
-                            <span className='text-xs'>//TODO</span>
+
+                            <span className='text-xs'>TODO</span>
                         </div>
                         <Button variant='ghost' size='icon-xs' onClick={() => setShowSuggestion(false)}>
                             <X />
@@ -38,7 +38,7 @@ const SupportTicketCommentBox = ({ ticket }: SupportTicketCommentBoxProps) => {
             </div>
 
             <InputGroup className={cn('rounded-b-lg ', showSuggestion ? 'rounded-t-none border-t-0' : 'rounded-t-lg')}>
-               <InputGroupInput placeholder="Add a comment..."  className='min-h-12 max-h-32'/>
+                <InputGroupInput placeholder="Add a comment..." className='min-h-12 max-h-32' />
                 <InputGroupAddon align="block-end" className="pt-1">
                     <div className='flex items-center gap-2 justify-between w-full'>
                         <div className='flex items-center gap-2'>
