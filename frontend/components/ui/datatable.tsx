@@ -10,17 +10,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { cn } from "@/lib/utils"
 
 interface DataTableProps<TFeatures extends TableFeatures, TData extends RowData> {
   features: TFeatures
   columns: ColumnDef<TFeatures, TData>[]
   data: TData[]
+  alternateRowColours?: boolean
 }
 
 export function DataTable<TFeatures extends TableFeatures, TData extends RowData>({
   features,
   columns,
   data,
+  alternateRowColours = true
 }: DataTableProps<TFeatures, TData>) {
   const table = useTable({
     features,
@@ -29,14 +32,14 @@ export function DataTable<TFeatures extends TableFeatures, TData extends RowData
   } as unknown as TableOptions<TFeatures, TData>)
 
   return (
-    <div className="overflow-hidden rounded-md border">
+    <div className="overflow-hidden rounded-xl border">
       <Table>
-        <TableHeader>
+        <TableHeader className="bg-muted text-xs">
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="text-muted-foreground tracking-tight">
                     {header.isPlaceholder ? null : (
                       <table.FlexRender header={header} />
                     )}
@@ -48,8 +51,8 @@ export function DataTable<TFeatures extends TableFeatures, TData extends RowData
         </TableHeader>
         <TableBody>
           {table.getRowModel().rows?.length ? (
-            table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
+            table.getRowModel().rows.map((row, index) => (
+              <TableRow key={row.id} className={cn('', alternateRowColours ? index % 2 == 0 ? 'bg-muted' : '' : '')}>
                 {row.getAllCells().map((cell) => (
                   <TableCell key={cell.id}>
                     <table.FlexRender cell={cell} />

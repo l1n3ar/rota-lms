@@ -1,3 +1,4 @@
+import { SupportTicketsTable } from '@/components/admin/support-tickets/datatable/table'
 import { Button } from '@/components/ui/button'
 import { InputGroup, InputGroupInput, InputGroupAddon } from '@/components/ui/input-group'
 import { ListFilter, Search } from 'lucide-react'
@@ -28,7 +29,7 @@ const AdminSupportTicketsPage = () => {
       </div>
 
       <div id='content'>
-
+        <SupportTicketsTable data={[]} />
       </div>
 
     </div>

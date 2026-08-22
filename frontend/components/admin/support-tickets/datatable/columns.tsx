@@ -19,10 +19,6 @@ export const columns = columnHelper.columns([
     header: "Subject",
   }),
   columnHelper.accessor(
-    (row) => `${row.created_by.first_name} ${row.created_by.last_name}`,
-    { id: "created_by", header: "Created By" }
-  ),
-  columnHelper.accessor(
     (row) => `${row.assignee.first_name} ${row.assignee.last_name}`,
     { id: "assignee", header: "Assignee" }
   ),
