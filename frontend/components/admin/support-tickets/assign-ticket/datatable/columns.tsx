@@ -5,6 +5,7 @@ import { createColumnHelper } from "@tanstack/react-table"
 import { type DataTableFeatures } from './features'
 import { AssignableAdmin, MapDBRoleToUserFacingRole, MapDBStatusToUserFacingStatus } from "@/types/user"
 import { AdminActionsCell } from "./actions"
+import UserStatusBadge from "@/components/user/user-status-badge"
 
 const columnHelper = createColumnHelper<DataTableFeatures, AssignableAdmin>()
 
@@ -16,7 +17,7 @@ export const columns = columnHelper.columns([
             header: "Admin Name",
             cell: (info) => {
 
-                const adminName = `${info.row.original.first_name} ${info.row.original.last_name}`
+                const adminName = `${info.row.original.first_name} ${info.row.original.last_name }`
 
                 return (
                     <div className="flex flex-col">
@@ -33,7 +34,7 @@ export const columns = columnHelper.columns([
         header: "Status",
         cell: (info) => {
             return (
-                <span>{MapDBStatusToUserFacingStatus[info.getValue()]}</span>
+                <UserStatusBadge status={info.getValue()} />
             )
         }
     }),
