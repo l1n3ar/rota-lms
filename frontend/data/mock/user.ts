@@ -2,6 +2,7 @@ import { AssignableAdmin } from "@/types/user"
 
 export const mockAssignableAdmins: AssignableAdmin[] = [
   {
+    id: "USR-2001",
     first_name: "Priya",
     last_name: "Nair",
     role: "superuser",
@@ -11,6 +12,7 @@ export const mockAssignableAdmins: AssignableAdmin[] = [
     updated_at: new Date("2026-01-05T10:30:00Z"),
   },
   {
+    id: "USR-2002",
     first_name: "Arjun",
     last_name: "Verma",
     role: "superuser",
@@ -20,6 +22,7 @@ export const mockAssignableAdmins: AssignableAdmin[] = [
     updated_at: new Date("2026-02-20T17:00:00Z"),
   },
   {
+    id: "USR-2003",
     first_name: "Kavya",
     last_name: "Menon",
     role: "superuser",

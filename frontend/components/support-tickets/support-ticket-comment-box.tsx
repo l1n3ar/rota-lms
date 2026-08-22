@@ -37,7 +37,7 @@ const SupportTicketCommentBox = ({ ticket }: SupportTicketCommentBoxProps) => {
                 </div>
             </div>
 
-            <InputGroup className={cn('rounded-b-lg border-t-0', showSuggestion ? 'rounded-t-none' : 'rounded-t-lg')}>
+            <InputGroup className={cn('rounded-b-lg ', showSuggestion ? 'rounded-t-none border-t-0' : 'rounded-t-lg')}>
                <InputGroupInput placeholder="Add a comment..."  className='min-h-12 max-h-32'/>
                 <InputGroupAddon align="block-end" className="pt-1">
                     <div className='flex items-center gap-2 justify-between w-full'>
