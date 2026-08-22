@@ -55,7 +55,7 @@ export function DataTable<TFeatures extends TableFeatures, TData extends RowData
 
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row, index) => (
-              <TableRow key={row.id} className={cn('', alternateRowColours ? index % 2 == 0 ? '' : 'bg-muted' : '')}>
+              <TableRow key={row.id} className={cn('', alternateRowColours ? index % 2 == 0 ? '' : 'bg-muted/80' : '')}>
                 {row.getAllCells().map((cell) => (
                   <TableCell key={cell.id}>
                     <table.FlexRender cell={cell} />

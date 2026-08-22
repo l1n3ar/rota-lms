@@ -13,13 +13,7 @@ export const mockSupportTickets: SupportTicket[] = [
       created_at: new Date("2025-11-02T09:15:00Z"),
       updated_at: new Date("2025-11-02T09:15:00Z"),
     },
-    assignee: {
-      first_name: "Priya",
-      last_name: "Nair",
-      role: "superuser",
-      created_at: new Date("2025-01-14T08:00:00Z"),
-      updated_at: new Date("2026-01-05T10:30:00Z"),
-    },
+
     created_at: new Date("2026-02-10T14:22:00Z"),
     updated_at: new Date("2026-02-11T09:05:00Z"),
   },
