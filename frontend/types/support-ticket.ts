@@ -6,7 +6,8 @@ export type SupportTicket = {
     category: string,
     subject: string,
     priority? : 'low' | 'moderate' | 'high'
-    assignee: User,
+    assignee?: User,
+    
     created_at: Date,
     updated_at: Date,
 }

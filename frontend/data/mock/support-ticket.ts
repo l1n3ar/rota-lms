@@ -5,6 +5,7 @@ export const mockSupportTickets: SupportTicket[] = [
     id: "TCK-1001",
     category: "Billing",
     subject: "Unable to update payment method",
+    priority: "high",
     created_by: {
       first_name: "Ravi",
       last_name: "Shah",
@@ -26,6 +27,7 @@ export const mockSupportTickets: SupportTicket[] = [
     id: "TCK-1002",
     category: "Course Access",
     subject: "Enrolled course not showing up in dashboard",
+    priority: "moderate",
     created_by: {
       first_name: "Meera",
       last_name: "Iyer",
@@ -47,6 +49,7 @@ export const mockSupportTickets: SupportTicket[] = [
     id: "TCK-1003",
     category: "Bug Report",
     subject: "Quiz submission button unresponsive on Safari",
+    priority: "high",
     created_by: {
       first_name: "Daniel",
       last_name: "Cruz",
@@ -68,6 +71,7 @@ export const mockSupportTickets: SupportTicket[] = [
     id: "TCK-1004",
     category: "Account",
     subject: "Request to merge two student accounts",
+    priority: "low",
     created_by: {
       first_name: "Sofia",
       last_name: "Martinez",

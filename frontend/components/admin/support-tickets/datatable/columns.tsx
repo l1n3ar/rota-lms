@@ -6,6 +6,8 @@ import dateFormat from 'dateformat'
 import { type DataTableFeatures } from './features'
 import { SupportTicket } from "@/types/support-ticket"
 import { TicketActionsCell } from "./actions"
+import PriorityBadge from "../priority-badge"
+import { MapDBRoleToUserFacingRole } from "@/types/user"
 
 
 
@@ -29,25 +31,51 @@ export const columns = columnHelper.columns([
       return (
         <div className="flex flex-col">
           <span>{info.getValue()}</span>
-          <span className="text-xs text-muted-foreground">{dateFormat(new Date(info.row.original.created_at),'mmmm d, yyyy')} </span>
+          <span className="text-xs text-muted-foreground">{dateFormat(new Date(info.row.original.created_at), 'mmmm d, yyyy')} </span>
         </div>
       )
     }
   }),
   columnHelper.accessor("subject", {
     header: "Subject",
+    cell: (info) => {
+      return (
+        <div className="flex flex-col">
+          <span>{info.getValue()}</span>
+          <PriorityBadge priority={info.row.original.priority} />
+        </div>
+
+      )
+    }
   }),
   columnHelper.accessor(
-    (row) => `${row.assignee.first_name} ${row.assignee.last_name}`,
-    { id: "assignee", header: "Assignee" }
+    (row) => `${row.assignee?.first_name} ${row.assignee?.last_name}`,
+    {
+      id: "assignee",
+      header: "Assignee",
+      cell: (info) => {
+
+        const assigneeName = info.row.original.assignee ? `${info.row.original.assignee?.first_name} ${info.row.original.assignee?.last_name}` : 'None'
+        const assigneeRole = info.row.original.assignee ? `${MapDBRoleToUserFacingRole[info.row.original.assignee.role]}` : ''
+
+        return (
+          <div className="flex flex-col">
+            <span>{assigneeName}</span>
+            <span className="text-xs text-muted-foreground">{assigneeRole}</span>
+          </div>
+
+        )
+      }
+    }
+
   ),
   columnHelper.accessor('updated_at', {
     header: "Last Update",
     cell: (info) => {
       return (
         <div className="flex flex-col">
-          <span>{dateFormat(new Date(info.getValue()),'mmmm d, yyyy')}</span>
-          <span className="text-xs text-muted-foreground">{dateFormat(new Date(info.getValue()),'hh:mm')}</span>
+          <span>{dateFormat(new Date(info.getValue()), 'mmmm d, yyyy')}</span>
+          <span className="text-xs text-muted-foreground">{dateFormat(new Date(info.getValue()), 'hh:mm')}</span>
         </div>
       )
     },
