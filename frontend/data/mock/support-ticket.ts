@@ -6,6 +6,7 @@ export const mockSupportTickets: SupportTicket[] = [
     category: "Billing",
     subject: "Unable to update payment method",
     priority: 'high',
+    status: 'in_progress',
     created_by: {
       first_name: "Ravi",
       last_name: "Shah",
@@ -23,6 +24,7 @@ export const mockSupportTickets: SupportTicket[] = [
     category: "Course Access",
     subject: "Enrolled course not showing up in dashboard",
     priority: "medium",
+    status: "answered",
     created_by: {
       first_name: "Meera",
       last_name: "Iyer",
@@ -47,6 +49,7 @@ export const mockSupportTickets: SupportTicket[] = [
     category: "Bug Report",
     subject: "Quiz submission button unresponsive on Safari",
     priority: "high",
+    status: "in_progress",
     created_by: {
       first_name: "Daniel",
       last_name: "Cruz",
@@ -71,6 +74,7 @@ export const mockSupportTickets: SupportTicket[] = [
     category: "Account",
     subject: "Request to merge two student accounts",
     priority: "low",
+    status: "closed",
     created_by: {
       first_name: "Sofia",
       last_name: "Martinez",

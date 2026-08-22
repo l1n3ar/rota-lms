@@ -20,11 +20,13 @@ const SupportTicketHeader = ({ ticket }: SupportTicketHeaderProps) => {
                 <SupportTicketHeaderCard
                     title='Priority'
                     content={ticket.priority ? <IconBadge {...PRIORITY_CONFIG[ticket.priority]} /> : null}
+                    className='gap-1'
                 />
                 <SupportTicketHeaderCard title='Subject' content={ticket.subject} className='col-span-2' />
                 <SupportTicketHeaderCard
                     title='Status'
                     content={ticket.status ? <IconBadge {...TICKET_STATUS_CONFIG[ticket.status]} /> : null}
+                    className='gap-1'
                 />
             </div>
 
