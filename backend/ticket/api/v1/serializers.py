@@ -1,18 +1,22 @@
 from rest_framework import serializers
 from ticket.models import Ticket, Comment
 
+
 class TicketCreateSerializer(serializers.ModelSerializer):
     """
-    Used for creating tickets (only title + issue_description).
+    Used for creating tickets.
     The user is set from JWT automatically.
     """
+
     class Meta:
         model = Ticket
-        fields = ["title", "issue_description"]
+        # Included 'category' and 'priority' since they are part of the TS interface
+        fields = ["category", "subject", "issue_description", "priority"]
 
     def create(self, validated_data):
         user = self.context["request"].user
-        return Ticket.objects.create(user=user, **validated_data)
+        # Mapped the authenticated user to the new 'created_by' field
+        return Ticket.objects.create(created_by=user, **validated_data)
 
 
 class TicketListSerializer(serializers.ModelSerializer):
@@ -21,33 +25,68 @@ class TicketListSerializer(serializers.ModelSerializer):
     Includes last comment date.
     """
     last_comment_date = serializers.SerializerMethodField()
+    # Aliased 'ticket_id' to 'id' to perfectly match the TS interface requirement 'id: string'
+    id = serializers.CharField(source="ticket_id", read_only=True)
 
     class Meta:
         model = Ticket
-        fields = ["ticket_id", "title", "completed_status", "last_comment_date"]
+        # Updated fields to reflect the new model properties and TS types
+        fields = [
+            "id",
+            "category",
+            "subject",
+            "status",
+            "priority",
+            "last_comment_date",
+            "updated_at"
+        ]
 
     def get_last_comment_date(self, obj):
-        last_comment = obj.comment_set.order_by("-created_date").first()
-        return last_comment.created_date if last_comment else None
+        # Swapped 'comment_set' for 'comments' (from related_name) and 'created_date' for 'created_at'
+        last_comment = obj.comments.order_by("-created_at").first()
+        return last_comment.created_at if last_comment else None
 
 
 class CommentSerializer(serializers.ModelSerializer):
     """
     Serializer for comments.
     """
-    user = serializers.StringRelatedField(read_only=True)
+    # Renamed from 'user' to 'created_by'
+    created_by = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Comment
-        fields = ["id", "user", "text", "created_date", "attachment"]
+        # Updated 'created_date' to 'created_at'
+        fields = ["id", "created_by", "text", "created_at", "attachment"]
 
 
 class TicketDetailSerializer(serializers.ModelSerializer):
     """
     Detailed view of a ticket with all comments.
     """
-    comments = CommentSerializer(source="comment_set", many=True, read_only=True)
+    # Removed source="comment_set" because we set related_name="comments" in the model
+    comments = CommentSerializer(many=True, read_only=True)
+
+    # Aliasing to match the TS 'id' field
+    id = serializers.CharField(source="ticket_id", read_only=True)
+
+    # Returning string representations for the frontend (or you can nest a UserSerializer here)
+    created_by = serializers.StringRelatedField(read_only=True)
+    assignee = serializers.StringRelatedField(read_only=True)
 
     class Meta:
         model = Ticket
-        fields = ["ticket_id", "title", "issue_description", "created_date", "comments"]
+        # Brought in all the required fields from the TS SupportTicket type
+        fields = [
+            "id",
+            "created_by",
+            "category",
+            "subject",
+            "issue_description",
+            "priority",
+            "status",
+            "assignee",
+            "created_at",
+            "updated_at",
+            "comments"
+        ]

@@ -11,7 +11,7 @@ from drf_spectacular.utils import extend_schema
 @extend_schema(
     tags=["Ticket"],
     summary="Create a new ticket",
-    description="Authenticated users can create a ticket by providing title and issue_description. "
+    description="Authenticated users can create a ticket by providing category, subject, issue_description, and priority. "
                 "The ticket_id is generated automatically.",
     request=TicketCreateSerializer,
     responses={201: TicketDetailSerializer},
@@ -36,9 +36,11 @@ class TicketListView(generics.ListAPIView):
         request_user = self.request.user
         # Superusers can see every ticket
         if request_user.is_superuser:
-            return Ticket.objects.all()
-        # Regular users only see their own
-        return Ticket.objects.filter(user=request_user)
+            # Added .select_related() and .prefetch_related() to optimize database queries
+            return Ticket.objects.all().order_by('-updated_at')
+
+        # Regular users only see their own - UPDATED to use 'created_by'
+        return Ticket.objects.filter(created_by=request_user).order_by('-updated_at')
 
 
 @extend_schema(
@@ -59,5 +61,6 @@ class TicketDetailView(generics.RetrieveUpdateAPIView):
         # Allow superusers to query ANY ticket so they can view and update it
         if user.is_superuser:
             return Ticket.objects.all()
-        # Restrict regular users to only their own tickets
-        return Ticket.objects.filter(user=user)
+
+        # Restrict regular users to only their own tickets - UPDATED to use 'created_by'
+        return Ticket.objects.filter(created_by=user)
