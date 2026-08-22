@@ -8,19 +8,21 @@ import { Button } from "@/components/ui/button"
 import { SupportTicket } from "@/types/support-ticket"
 import { MessagesSquare, UserPlus } from "lucide-react"
 import AssignTicketDialog from "../assign-ticket/assign-ticket-dialog"
+import CommentOnTicketDialog from "../comment-on-ticket-dialog"
 
 
 
 export function TicketActionsCell({ ticket }: { ticket: SupportTicket }) {
 
   const [assignDialogOpen, setAssignDialogOpen] = useState(false)
+  const [commentDialogOpen, setCommentDialogOpen] = useState(false)
 
   const handleAssignment = () => {
     setAssignDialogOpen(true)
   }
 
   const handleAddComment = () => {
-
+    setCommentDialogOpen(true)
   }
 
   return (
@@ -57,6 +59,13 @@ export function TicketActionsCell({ ticket }: { ticket: SupportTicket }) {
         open={assignDialogOpen}
         onOpenChange={setAssignDialogOpen}
       />
+
+      <CommentOnTicketDialog
+        ticket={ticket}
+        open={commentDialogOpen}
+        onOpenChange={setCommentDialogOpen}
+      />
+
     </>
   )
 }

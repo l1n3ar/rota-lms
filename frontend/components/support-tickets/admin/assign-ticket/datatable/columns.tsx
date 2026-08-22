@@ -5,7 +5,8 @@ import { createColumnHelper } from "@tanstack/react-table"
 import { type DataTableFeatures } from './features'
 import { AssignableAdmin, MapDBRoleToUserFacingRole } from "@/types/user"
 import { AdminActionsCell } from "./actions"
-import UserStatusBadge from "@/components/user/user-status-badge"
+import { IconBadge } from "@/components/ui/icon-badge"
+import { USER_STATUS_CONFIG } from "@/components/user/config"
 
 const columnHelper = createColumnHelper<DataTableFeatures, AssignableAdmin>()
 
@@ -34,7 +35,7 @@ export const columns = columnHelper.columns([
         header: "Status",
         cell: (info) => {
             return (
-                <UserStatusBadge status={info.getValue()} />
+                <IconBadge {...USER_STATUS_CONFIG[info.getValue()]} />
             )
         }
     }),

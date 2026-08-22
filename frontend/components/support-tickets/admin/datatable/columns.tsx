@@ -6,7 +6,8 @@ import dateFormat from 'dateformat'
 import { type DataTableFeatures } from './features'
 import { SupportTicket } from "@/types/support-ticket"
 import { TicketActionsCell } from "./actions"
-import PriorityBadge from "../priority-badge"
+import { IconBadge } from "@/components/ui/icon-badge"
+import { PRIORITY_CONFIG } from "../../config"
 import { MapDBRoleToUserFacingRole } from "@/types/user"
 
 const columnHelper = createColumnHelper<DataTableFeatures, SupportTicket>()
@@ -40,7 +41,7 @@ export const columns = columnHelper.columns([
       return (
         <div className="flex flex-col gap-1">
           <span>{info.getValue()}</span>
-          <PriorityBadge priority={info.row.original.priority} />
+          {info.row.original.priority && <IconBadge {...PRIORITY_CONFIG[info.row.original.priority]} />}
         </div>
 
       )
