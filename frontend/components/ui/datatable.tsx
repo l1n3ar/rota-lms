@@ -1,6 +1,6 @@
 "use client"
 
-import { useTable, type ColumnDef, type RowData, type TableFeatures } from "@tanstack/react-table"
+import { useTable, type ColumnDef, type RowData, type TableFeatures, type TableOptions } from "@tanstack/react-table"
 
 import {
   Table,
@@ -26,7 +26,7 @@ export function DataTable<TFeatures extends TableFeatures, TData extends RowData
     features,
     data,
     columns,
-  })
+  } as unknown as TableOptions<TFeatures, TData>)
 
   return (
     <div className="overflow-hidden rounded-md border">
@@ -49,11 +49,8 @@ export function DataTable<TFeatures extends TableFeatures, TData extends RowData
         <TableBody>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
-                {row.getVisibleCells().map((cell) => (
+              <TableRow key={row.id}>
+                {row.getAllCells().map((cell) => (
                   <TableCell key={cell.id}>
                     <table.FlexRender cell={cell} />
                   </TableCell>
