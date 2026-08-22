@@ -16,7 +16,7 @@ const AdminSupportTicketsPage = () => {
 
         <div className='flex items-center gap-2'>
 
-          <InputGroup className='bg-white p-4 flex w-[15rem]'>
+          <InputGroup className='bg-card p-4 flex w-[15rem]'>
             <InputGroupInput
               id="inline-end-input"
               placeholder="Ticket Search"

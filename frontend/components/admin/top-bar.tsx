@@ -22,7 +22,7 @@ const AdminTopBar = () => {
             </div>
 
             <div className='flex items-center gap-2'>
-                <InputGroup className='bg-white p-6 flex w-[20rem]'>
+                <InputGroup className='bg-card p-6 flex w-[20rem]'>
 
                     <InputGroupInput
                         id="inline-end-input"

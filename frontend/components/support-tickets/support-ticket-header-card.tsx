@@ -11,7 +11,7 @@ interface SupportTicketHeaderCardProps {
 
 const SupportTicketHeaderCard = ({ title, icon: Icon, content, className }: SupportTicketHeaderCardProps) => {
     return (
-        <div className={cn('p-4 rounded-xl flex flex-col bg-white ', className)}>
+        <div className={cn('p-4 rounded-xl flex flex-col bg-card ', className)}>
             <span className='flex items-center gap-1 text-xs text-muted-foreground'>
                 {/* <Icon className='size-3.5' /> */}
                 {title}

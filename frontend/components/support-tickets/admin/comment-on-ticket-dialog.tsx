@@ -8,6 +8,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { SupportTicket } from "@/types/support-ticket"
 import SupportTicketHeader from "../support-ticket-header"
+import SupportTicketContent from "../support-ticket-content"
+import SupportTicketCommentBox from "../support-ticket-comment-box"
 
 interface CommentOnTicketDialogProps {
   ticket: SupportTicket
@@ -23,10 +25,11 @@ const CommentOnTicketDialog = ({ ticket, open, onOpenChange }: CommentOnTicketDi
       <DialogContent size="3xl">
         <DialogHeader>
           <SupportTicketHeader ticket={ticket} />
-          <Separator className="mt-2" />
+          {/* <Separator className="mt-2" /> */}
         </DialogHeader>
 
-
+        <SupportTicketContent ticket={ticket} />
+        <SupportTicketCommentBox ticket={ticket} />
       </DialogContent>
     </Dialog>
   )
