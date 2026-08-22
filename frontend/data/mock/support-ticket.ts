@@ -1,0 +1,88 @@
+import { SupportTicket } from "@/types/support-ticket"
+
+export const mockSupportTickets: SupportTicket[] = [
+  {
+    id: "TCK-1001",
+    category: "Billing",
+    subject: "Unable to update payment method",
+    created_by: {
+      first_name: "Ravi",
+      last_name: "Shah",
+      role: "user",
+      created_at: new Date("2025-11-02T09:15:00Z"),
+      updated_at: new Date("2025-11-02T09:15:00Z"),
+    },
+    assignee: {
+      first_name: "Priya",
+      last_name: "Nair",
+      role: "superuser",
+      created_at: new Date("2025-01-14T08:00:00Z"),
+      updated_at: new Date("2026-01-05T10:30:00Z"),
+    },
+    created_at: new Date("2026-02-10T14:22:00Z"),
+    updated_at: new Date("2026-02-11T09:05:00Z"),
+  },
+  {
+    id: "TCK-1002",
+    category: "Course Access",
+    subject: "Enrolled course not showing up in dashboard",
+    created_by: {
+      first_name: "Meera",
+      last_name: "Iyer",
+      role: "lecturer",
+      created_at: new Date("2025-08-20T12:00:00Z"),
+      updated_at: new Date("2025-08-20T12:00:00Z"),
+    },
+    assignee: {
+      first_name: "Priya",
+      last_name: "Nair",
+      role: "superuser",
+      created_at: new Date("2025-01-14T08:00:00Z"),
+      updated_at: new Date("2026-01-05T10:30:00Z"),
+    },
+    created_at: new Date("2026-03-01T11:40:00Z"),
+    updated_at: new Date("2026-03-01T11:40:00Z"),
+  },
+  {
+    id: "TCK-1003",
+    category: "Bug Report",
+    subject: "Quiz submission button unresponsive on Safari",
+    created_by: {
+      first_name: "Daniel",
+      last_name: "Cruz",
+      role: "user",
+      created_at: new Date("2026-01-18T16:45:00Z"),
+      updated_at: new Date("2026-01-18T16:45:00Z"),
+    },
+    assignee: {
+      first_name: "Arjun",
+      last_name: "Verma",
+      role: "superuser",
+      created_at: new Date("2025-06-01T08:00:00Z"),
+      updated_at: new Date("2026-02-20T17:00:00Z"),
+    },
+    created_at: new Date("2026-03-05T08:12:00Z"),
+    updated_at: new Date("2026-03-06T13:50:00Z"),
+  },
+  {
+    id: "TCK-1004",
+    category: "Account",
+    subject: "Request to merge two student accounts",
+    created_by: {
+      first_name: "Sofia",
+      last_name: "Martinez",
+      role: "lecturer",
+      created_at: new Date("2025-09-09T10:00:00Z"),
+      updated_at: new Date("2025-09-09T10:00:00Z"),
+    },
+    assignee: {
+      first_name: "Arjun",
+      last_name: "Verma",
+      role: "superuser",
+      created_at: new Date("2025-06-01T08:00:00Z"),
+      updated_at: new Date("2026-02-20T17:00:00Z"),
+    },
+    created_at: new Date("2026-03-08T15:30:00Z"),
+    updated_at: new Date("2026-03-08T15:30:00Z"),
+  },
+]

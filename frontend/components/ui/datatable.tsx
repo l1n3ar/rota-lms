@@ -17,13 +17,15 @@ interface DataTableProps<TFeatures extends TableFeatures, TData extends RowData>
   columns: ColumnDef<TFeatures, TData>[]
   data: TData[]
   alternateRowColours?: boolean
+  isLoading?: boolean
 }
 
 export function DataTable<TFeatures extends TableFeatures, TData extends RowData>({
   features,
   columns,
   data,
-  alternateRowColours = true
+  alternateRowColours = true,
+  isLoading = false
 }: DataTableProps<TFeatures, TData>) {
   const table = useTable({
     features,
@@ -50,9 +52,10 @@ export function DataTable<TFeatures extends TableFeatures, TData extends RowData
           ))}
         </TableHeader>
         <TableBody>
+
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row, index) => (
-              <TableRow key={row.id} className={cn('', alternateRowColours ? index % 2 == 0 ? 'bg-muted' : '' : '')}>
+              <TableRow key={row.id} className={cn('', alternateRowColours ? index % 2 == 0 ? '' : 'bg-muted' : '')}>
                 {row.getAllCells().map((cell) => (
                   <TableCell key={cell.id}>
                     <table.FlexRender cell={cell} />
@@ -67,6 +70,8 @@ export function DataTable<TFeatures extends TableFeatures, TData extends RowData
               </TableCell>
             </TableRow>
           )}
+
+
         </TableBody>
       </Table>
     </div>
