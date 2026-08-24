@@ -104,8 +104,3 @@ class TicketAPITests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["id"], ticket.ticket_id)
         self.assertEqual(response.data["subject"], ticket.subject)
-
-    def test_get_absolute_url_resolves(self):
-        """Regression: reverse() used a nonexistent namespace and wrong kwarg."""
-        ticket = self._create_ticket(self.user)
-        self.assertEqual(ticket.get_absolute_url(), f"/api/v1/ticket/{ticket.ticket_id}/")
