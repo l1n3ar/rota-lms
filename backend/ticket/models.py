@@ -75,7 +75,8 @@ class Ticket(models.Model):
         return get_random_string(8, allowed_chars='0123456789abcdefzxyv')
 
     def get_absolute_url(self):
-        return reverse("ticket:ticket-detail", kwargs={"pk": self.pk})
+        # The detail view resolves by 'ticket_id' (no namespace on the include)
+        return reverse("ticket-detail", kwargs={"ticket_id": self.ticket_id})
 
     def save(self, *args, **kwargs):
         # Automatically set resolved_date if status is closed

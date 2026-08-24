@@ -26,7 +26,7 @@ class TicketAdmin(admin.ModelAdmin):
     list_filter = ('status', 'priority', 'category', 'created_at')
 
     # Adds a search bar at the top
-    search_fields = ('ticket_id', 'subject', 'issue_description', 'created_by__username', 'created_by__email')
+    search_fields = ('ticket_id', 'subject', 'issue_description', 'created_by__email', 'created_by__first_name', 'created_by__last_name')
 
     # Protects auto-generated fields from being edited manually
     readonly_fields = ('ticket_id', 'created_at', 'updated_at', 'resolved_date')
@@ -39,5 +39,5 @@ class TicketAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('id', 'ticket', 'created_by', 'created_at')
     list_filter = ('created_at',)
-    search_fields = ('text', 'ticket__ticket_id', 'created_by__username')
+    search_fields = ('text', 'ticket__ticket_id', 'created_by__email', 'created_by__first_name', 'created_by__last_name')
     readonly_fields = ('created_at',)

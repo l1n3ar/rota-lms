@@ -16,7 +16,8 @@ class TicketCommentCreateView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         ticket_id = self.kwargs.get("ticket_id")
-        ticket = Ticket.objects.filter(ticket_id=ticket_id, user=self.request.user).first()
+        # 'created_by' is the model field (renamed from 'user')
+        ticket = Ticket.objects.filter(ticket_id=ticket_id, created_by=self.request.user).first()
         if not ticket:
             raise serializers.ValidationError("Ticket not found or not yours.")
-        serializer.save(user=self.request.user, ticket=ticket)
+        serializer.save(created_by=self.request.user, ticket=ticket)

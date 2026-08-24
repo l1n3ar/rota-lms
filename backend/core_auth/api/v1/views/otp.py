@@ -27,6 +27,11 @@ class OTPRequestThrottle(AnonRateThrottle):
     rate = '5/min'
 
 
+class OTPVerifyThrottle(AnonRateThrottle):
+    # Looser than request (typos happen) but still blocks brute-forcing the 6-digit code
+    rate = '10/min'
+
+
 @extend_schema_view(
     post=extend_schema(
         tags=['Auth'],
@@ -153,11 +158,13 @@ class OTPRequestView(views.APIView):
                     ),
                 ],
             ),
+            429: OpenApiResponse(description="Rate limit exceeded (Max 10 requests/min)."),
         },
     )
 )
 class OTPVerifyView(views.APIView):
     permission_classes = [AllowAny]
+    throttle_classes = [OTPVerifyThrottle]
 
     def post(self, request, *args, **kwargs):
         serializer = OTPVerifySerializer(data=request.data)

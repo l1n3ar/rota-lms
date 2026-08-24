@@ -5,7 +5,6 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
     SpectacularRedocView
 )
-from core_auth.api.v1.urls import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),

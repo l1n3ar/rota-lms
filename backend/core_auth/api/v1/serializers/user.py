@@ -20,18 +20,21 @@ class UserProfileUpdateSerializer(serializers.ModelSerializer):
 
 class UserProfileResponseSerializer(serializers.ModelSerializer):
     """
-    Formats the response, including the newly minted tokens.
+    Formats the response, including a freshly minted token pair.
     """
-    refresh = serializers.SerializerMethodField()
-    access = serializers.SerializerMethodField()
+    refresh = serializers.CharField(read_only=True)
+    access = serializers.CharField(read_only=True)
     profile_complete = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = User
         fields = ['id', 'email', 'first_name', 'last_name', 'profile_complete', 'refresh', 'access']
 
-    def get_refresh(self, obj):
-        return str(ProgressiveTokenSerializer.get_token(obj))
-
-    def get_access(self, obj):
-        return str(ProgressiveTokenSerializer.get_token(obj).access_token)
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        # Mint ONE token pair so the returned access token always
+        # belongs to the returned refresh token.
+        refresh = ProgressiveTokenSerializer.get_token(instance)
+        data['refresh'] = str(refresh)
+        data['access'] = str(refresh.access_token)
+        return data

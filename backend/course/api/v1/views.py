@@ -1,9 +1,6 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAdminUser
 from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework.permissions import AllowAny, IsAdminUser
-from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import generics
 from course.models import Category, Course
 from .serializers import CategorySerializer, CourseHomeSerializer, CoursePagination
 

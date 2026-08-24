@@ -26,7 +26,8 @@ load_dotenv(BASE_DIR / ".env")
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 SECRET_KEY = os.getenv("SECRET_KEY", "unsafe-secret-key")
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
-EMAIL_SANDBOX = os.getenv("EMAIL_SANDBOX", "True").lower() == "true"
+# Sandbox defaults to DEBUG so OTPs are never leaked in production by accident.
+EMAIL_SANDBOX = os.getenv("EMAIL_SANDBOX", str(DEBUG)).lower() == "true"
 USE_API_ENVELOPE = os.getenv('USE_API_ENVELOPE', 'False').lower() in ('true', '1', 't', 'yes')
 
 SPECTACULAR_SETTINGS = {
@@ -136,7 +137,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rota.wsgi.application'
 
-CORS_ALLOW_ALL_ORIGINS = True
+# Allow-all by default only in dev; production should rely on CORS_ALLOWED_ORIGINS.
+CORS_ALLOW_ALL_ORIGINS = os.getenv("CORS_ALLOW_ALL_ORIGINS", str(DEBUG)).lower() == "true"
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://website.com",
@@ -215,7 +217,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 # ============================
 # STORAGE BACKENDS
 # ============================
-USE_S3 = os.getenv("USE_S3")
+USE_S3 = os.getenv("USE_S3", "").lower() == "true"
 
 if USE_S3:
     AWS_S3_ENDPOINT_URL = os.getenv("AWS_S3_ENDPOINT_URL")
@@ -249,7 +251,9 @@ if USE_S3:
 
 MAILERS = {
     'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
+        # Console backend only prints emails to stdout — set EMAIL_BACKEND to an
+        # SMTP backend in production or OTP emails will never be delivered.
+        'BACKEND': os.getenv("EMAIL_BACKEND", 'django.core.mail.backends.console.EmailBackend'),
     },
 }
 

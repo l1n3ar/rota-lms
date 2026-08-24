@@ -1,10 +1,5 @@
 from django.urls import path
-from course.api.v1.views import *
-
-
-# courses/urls.py
-from django.urls import path
-from .views import *
+from .views import CourseListView, CategoryListCreateView, CategoryDetailView
 
 urlpatterns = [
     path("list/", CourseListView.as_view(), name="course-list"),
