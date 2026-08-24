@@ -204,6 +204,13 @@ paths:
     get:
       operationId: v1_course_cat_list
       description: Retrieve all categories (public).
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
       tags:
       - Course
       security:
@@ -214,9 +221,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Category'
+                $ref: '#/components/schemas/PaginatedCategoryList'
           description: ''
     post:
       operationId: v1_course_cat_create
@@ -410,12 +415,475 @@ paths:
               schema:
                 $ref: '#/components/schemas/PaginatedCourseHomeList'
           description: ''
+  /api/v1/quiz/answers/:
+    get:
+      operationId: v1_quiz_answers_list
+      summary: List all answers
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - Answers
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicAnswerList'
+          description: ''
+    post:
+      operationId: v1_quiz_answers_create
+      summary: Create an answer (Admin only)
+      tags:
+      - Answers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicAnswer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicAnswer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicAnswer'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicAnswer'
+          description: ''
+  /api/v1/quiz/answers/{id}/:
+    get:
+      operationId: v1_quiz_answers_retrieve
+      summary: Retrieve a specific answer
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this answer.
+        required: true
+      tags:
+      - Answers
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicAnswer'
+          description: ''
+    put:
+      operationId: v1_quiz_answers_update
+      summary: Update an answer (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this answer.
+        required: true
+      tags:
+      - Answers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicAnswer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicAnswer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicAnswer'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicAnswer'
+          description: ''
+    patch:
+      operationId: v1_quiz_answers_partial_update
+      summary: Partially update an answer (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this answer.
+        required: true
+      tags:
+      - Answers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicAnswer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicAnswer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicAnswer'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicAnswer'
+          description: ''
+    delete:
+      operationId: v1_quiz_answers_destroy
+      summary: Delete an answer (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this answer.
+        required: true
+      tags:
+      - Answers
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/quiz/questions/:
+    get:
+      operationId: v1_quiz_questions_list
+      summary: List all questions
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - Questions
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicQuestionList'
+          description: ''
+    post:
+      operationId: v1_quiz_questions_create
+      summary: Create a question (Admin only)
+      tags:
+      - Questions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicQuestion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicQuestion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicQuestion'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicQuestion'
+          description: ''
+  /api/v1/quiz/questions/{id}/:
+    get:
+      operationId: v1_quiz_questions_retrieve
+      summary: Retrieve a specific question
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this question.
+        required: true
+      tags:
+      - Questions
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicQuestion'
+          description: ''
+    put:
+      operationId: v1_quiz_questions_update
+      summary: Update a question (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this question.
+        required: true
+      tags:
+      - Questions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicQuestion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicQuestion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicQuestion'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicQuestion'
+          description: ''
+    patch:
+      operationId: v1_quiz_questions_partial_update
+      summary: Partially update a question (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this question.
+        required: true
+      tags:
+      - Questions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicQuestion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicQuestion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicQuestion'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicQuestion'
+          description: ''
+    delete:
+      operationId: v1_quiz_questions_destroy
+      summary: Delete a question (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this question.
+        required: true
+      tags:
+      - Questions
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/quiz/quizzes/:
+    get:
+      operationId: v1_quiz_quizzes_list
+      summary: List all quizzes
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - Quiz
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicQuizList'
+          description: ''
+    post:
+      operationId: v1_quiz_quizzes_create
+      summary: Create a new quiz (Admin only)
+      tags:
+      - Quiz
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicQuiz'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicQuiz'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicQuiz'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicQuiz'
+          description: ''
+  /api/v1/quiz/quizzes/{id}/:
+    get:
+      operationId: v1_quiz_quizzes_retrieve
+      summary: Retrieve a specific quiz
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this quiz.
+        required: true
+      tags:
+      - Quiz
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicQuiz'
+          description: ''
+    put:
+      operationId: v1_quiz_quizzes_update
+      summary: Update a quiz (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this quiz.
+        required: true
+      tags:
+      - Quiz
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicQuiz'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicQuiz'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicQuiz'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicQuiz'
+          description: ''
+    patch:
+      operationId: v1_quiz_quizzes_partial_update
+      summary: Partially update a quiz (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this quiz.
+        required: true
+      tags:
+      - Quiz
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicQuiz'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicQuiz'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicQuiz'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicQuiz'
+          description: ''
+    delete:
+      operationId: v1_quiz_quizzes_destroy
+      summary: Delete a quiz (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this quiz.
+        required: true
+      tags:
+      - Quiz
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
   /api/v1/ticket/:
     get:
       operationId: v1_ticket_list
       description: Returns all tickets. Superusers see all tickets in the system.
         Regular users only see tickets they created.
       summary: List user tickets
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
       tags:
       - Ticket
       security:
@@ -425,9 +893,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TicketList'
+                $ref: '#/components/schemas/PaginatedTicketListList'
           description: ''
   /api/v1/ticket/{ticket_id}/:
     get:
@@ -557,8 +1023,8 @@ paths:
   /api/v1/ticket/create/:
     post:
       operationId: v1_ticket_create_create
-      description: Authenticated users can create a ticket by providing title and
-        issue_description. The ticket_id is generated automatically.
+      description: Authenticated users can create a ticket by providing category,
+        subject, issue_description, and priority. The ticket_id is generated automatically.
       summary: Create a new ticket
       tags:
       - Ticket
@@ -612,13 +1078,13 @@ components:
         id:
           type: integer
           readOnly: true
-        user:
+        created_by:
           type: string
           readOnly: true
         text:
           type: string
           maxLength: 1000
-        created_date:
+        created_at:
           type: string
           format: date-time
           readOnly: true
@@ -628,10 +1094,10 @@ components:
           format: uri
           nullable: true
       required:
-      - created_date
+      - created_at
+      - created_by
       - id
       - text
-      - user
     CourseHome:
       type: object
       properties:
@@ -697,6 +1163,29 @@ components:
       - access
       - profile_complete
       - refresh
+    PaginatedCategoryList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
     PaginatedCourseHomeList:
       type: object
       required:
@@ -720,6 +1209,98 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CourseHome'
+    PaginatedPublicAnswerList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicAnswer'
+    PaginatedPublicQuestionList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicQuestion'
+    PaginatedPublicQuizList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicQuiz'
+    PaginatedTicketListList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketList'
     PatchedCategory:
       type: object
       properties:
@@ -737,24 +1318,104 @@ components:
           type: string
           nullable: true
           maxLength: 100
+    PatchedPublicAnswer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        picture:
+          type: string
+          format: uri
+          nullable: true
+    PatchedPublicQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+          nullable: true
+          maxLength: 1000
+        picture:
+          type: string
+          format: uri
+          nullable: true
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicAnswer'
+          readOnly: true
+    PatchedPublicQuiz:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        picture:
+          type: string
+          format: uri
+        random:
+          type: boolean
+        store_answers:
+          type: boolean
+        single_attempt:
+          type: boolean
+        pass_score:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicQuestion'
+          readOnly: true
     PatchedTicketDetail:
       type: object
       description: Detailed view of a ticket with all comments.
       properties:
-        ticket_id:
+        id:
           type: string
-          maxLength: 8
-        title:
+          readOnly: true
+        created_by:
+          type: string
+          readOnly: true
+        category:
+          type: string
+          maxLength: 50
+        subject:
           type: string
           maxLength: 110
         issue_description:
           type: string
           maxLength: 1000
-        created_date:
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        assignee:
+          type: string
+          readOnly: true
+        created_at:
           type: string
           format: date-time
           readOnly: true
           nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
         comments:
           type: array
           items:
@@ -774,69 +1435,203 @@ components:
           type: string
           maxLength: 150
           minLength: 2
+    PriorityEnum:
+      enum:
+      - low
+      - medium
+      - high
+      type: string
+      description: |-
+        * `low` - Low
+        * `medium` - Medium
+        * `high` - High
+    PublicAnswer:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        picture:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - id
+      - title
+    PublicQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+          nullable: true
+          maxLength: 1000
+        picture:
+          type: string
+          format: uri
+          nullable: true
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicAnswer'
+          readOnly: true
+      required:
+      - answers
+      - id
+      - title
+    PublicQuiz:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 100
+        picture:
+          type: string
+          format: uri
+        random:
+          type: boolean
+        store_answers:
+          type: boolean
+        single_attempt:
+          type: boolean
+        pass_score:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+          nullable: true
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicQuestion'
+          readOnly: true
+      required:
+      - id
+      - questions
+      - title
+    StatusEnum:
+      enum:
+      - answered
+      - in_progress
+      - closed
+      type: string
+      description: |-
+        * `answered` - Answered
+        * `in_progress` - In Progress
+        * `closed` - Closed
     TicketCreate:
       type: object
       description: |-
-        Used for creating tickets (only title + issue_description).
+        Used for creating tickets.
         The user is set from JWT automatically.
       properties:
-        title:
+        category:
+          type: string
+          maxLength: 50
+        subject:
           type: string
           maxLength: 110
         issue_description:
           type: string
           maxLength: 1000
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
       required:
+      - category
       - issue_description
-      - title
+      - subject
     TicketDetail:
       type: object
       description: Detailed view of a ticket with all comments.
       properties:
-        ticket_id:
+        id:
           type: string
-          maxLength: 8
-        title:
+          readOnly: true
+        created_by:
+          type: string
+          readOnly: true
+        category:
+          type: string
+          maxLength: 50
+        subject:
           type: string
           maxLength: 110
         issue_description:
           type: string
           maxLength: 1000
-        created_date:
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        assignee:
+          type: string
+          readOnly: true
+        created_at:
           type: string
           format: date-time
           readOnly: true
           nullable: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
         comments:
           type: array
           items:
             $ref: '#/components/schemas/Comment'
           readOnly: true
       required:
+      - assignee
+      - category
       - comments
-      - created_date
+      - created_at
+      - created_by
+      - id
       - issue_description
-      - title
+      - subject
+      - updated_at
     TicketList:
       type: object
       description: |-
         List tickets for the authenticated user.
         Includes last comment date.
       properties:
-        ticket_id:
+        id:
           type: string
-          maxLength: 8
-        title:
+          readOnly: true
+        category:
+          type: string
+          maxLength: 50
+        subject:
           type: string
           maxLength: 110
-        completed_status:
-          type: boolean
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        priority:
+          $ref: '#/components/schemas/PriorityEnum'
         last_comment_date:
           type: string
           readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
       required:
+      - category
+      - id
       - last_comment_date
-      - title
+      - subject
+      - updated_at
     TokenRefresh:
       type: object
       properties:

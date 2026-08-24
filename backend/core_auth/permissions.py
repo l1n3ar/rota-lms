@@ -1,3 +1,4 @@
+from rest_framework import permissions
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -20,3 +21,18 @@ class IsProfileComplete(IsAuthenticated):
 
         # Fallback to DB check if token doesn't have the claim
         return token_payload.get('profile_complete', request.user.profile_complete)
+
+
+class IsSuperUserOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission to only allow superusers to edit or delete objects.
+    Normal authenticated users are restricted to viewing (GET).
+    """
+
+    def has_permission(self, request, view):
+        # Allow GET, HEAD, or OPTIONS requests for authenticated users
+        if request.method in permissions.SAFE_METHODS:
+            return request.user and request.user.is_authenticated
+
+        # Write permissions are only allowed to superusers
+        return request.user and request.user.is_superuser

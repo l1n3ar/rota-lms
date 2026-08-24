@@ -102,6 +102,7 @@ INSTALLED_APPS = [
     'core_auth.apps.CoreAuthConfig',
     'ticket.apps.TicketConfig',
     'course.apps.CourseConfig',
+    'quiz.apps.QuizConfig',
 ]
 
 MIDDLEWARE = [
