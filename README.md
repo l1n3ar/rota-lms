@@ -252,17 +252,6 @@ docker compose up -d --build
 | `rota_web` | `31247` | Gunicorn serving the API |
 | `rota_db` | `64510` | Maps to Postgres `5432` inside the network |
 
-### Fabric script
-
-`backend/deploy.py` is a minimal deploy pipeline: it zips the backend (excluding media, `.git`, `.venv`), uploads it to your server over SFTP, backs up the previous release, and rebuilds the containers remotely. It is driven by these variables in `backend/.env`:
-
-| Variable | Purpose |
-| --- | --- |
-| `DEPLOY_HOST` | Remote server host |
-| `DEPLOY_PORT` | SSH/SFTP port |
-| `DEPLOY_USER` | SSH user |
-| `DEPLOY_PASSWORD` | SSH password |
-| `REMOTE_TARGET_DIR` | Remote directory that holds `live/` |
 
 ## CI / CD
 
