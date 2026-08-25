@@ -172,6 +172,8 @@ paths:
           description: Authentication successful. Returns JWT pair and profile status.
         '400':
           description: Invalid, used, or expired OTP code.
+        '429':
+          description: Rate limit exceeded (Max 10 requests/min).
   /api/v1/auth/token/refresh/:
     post:
       operationId: v1_auth_token_refresh_create
@@ -199,6 +201,374 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/v1/certificate/certificates/:
+    get:
+      operationId: v1_certificate_certificates_list
+      summary: List all certificates
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - Certificates
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPublicCertificateList'
+          description: ''
+    post:
+      operationId: v1_certificate_certificates_create
+      summary: Create a certificate (Admin only)
+      tags:
+      - Certificates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicCertificate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicCertificate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicCertificate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicCertificate'
+          description: ''
+  /api/v1/certificate/certificates/{id}/:
+    get:
+      operationId: v1_certificate_certificates_retrieve
+      summary: Retrieve a specific certificate
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this certificate.
+        required: true
+      tags:
+      - Certificates
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicCertificate'
+          description: ''
+    put:
+      operationId: v1_certificate_certificates_update
+      summary: Update a certificate (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this certificate.
+        required: true
+      tags:
+      - Certificates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicCertificate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PublicCertificate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PublicCertificate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicCertificate'
+          description: ''
+    patch:
+      operationId: v1_certificate_certificates_partial_update
+      summary: Partially update a certificate (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this certificate.
+        required: true
+      tags:
+      - Certificates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicCertificate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicCertificate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPublicCertificate'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicCertificate'
+          description: ''
+    delete:
+      operationId: v1_certificate_certificates_destroy
+      summary: Delete a certificate (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this certificate.
+        required: true
+      tags:
+      - Certificates
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/certificate/issued/:
+    get:
+      operationId: v1_certificate_issued_list
+      description: |-
+        Issued certificates management.
+
+        Superusers can issue, update, revoke and view every issued certificate.
+        Regular users can only list/retrieve certificates issued to themselves.
+      summary: List issued certificates
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - Certificates
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedIssuedCertificateList'
+          description: ''
+    post:
+      operationId: v1_certificate_issued_create
+      description: |-
+        Issued certificates management.
+
+        Superusers can issue, update, revoke and view every issued certificate.
+        Regular users can only list/retrieve certificates issued to themselves.
+      summary: Issue a certificate to a user (Admin only)
+      tags:
+      - Certificates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssuedCertificate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IssuedCertificate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IssuedCertificate'
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuedCertificate'
+          description: ''
+  /api/v1/certificate/issued/{id}/:
+    get:
+      operationId: v1_certificate_issued_retrieve
+      description: |-
+        Issued certificates management.
+
+        Superusers can issue, update, revoke and view every issued certificate.
+        Regular users can only list/retrieve certificates issued to themselves.
+      summary: Retrieve an issued certificate
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Certificates
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuedCertificate'
+          description: ''
+    put:
+      operationId: v1_certificate_issued_update
+      description: |-
+        Issued certificates management.
+
+        Superusers can issue, update, revoke and view every issued certificate.
+        Regular users can only list/retrieve certificates issued to themselves.
+      summary: Update an issued certificate (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Certificates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssuedCertificate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IssuedCertificate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/IssuedCertificate'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuedCertificate'
+          description: ''
+    patch:
+      operationId: v1_certificate_issued_partial_update
+      description: |-
+        Issued certificates management.
+
+        Superusers can issue, update, revoke and view every issued certificate.
+        Regular users can only list/retrieve certificates issued to themselves.
+      summary: Partially update an issued certificate (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Certificates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedIssuedCertificate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedIssuedCertificate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedIssuedCertificate'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuedCertificate'
+          description: ''
+    delete:
+      operationId: v1_certificate_issued_destroy
+      description: |-
+        Issued certificates management.
+
+        Superusers can issue, update, revoke and view every issued certificate.
+        Regular users can only list/retrieve certificates issued to themselves.
+      summary: Revoke an issued certificate (Admin only)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Certificates
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/certificate/issued/{id}/pdf/:
+    get:
+      operationId: v1_certificate_issued_pdf_retrieve
+      description: Stream the generated PDF for an issued certificate (owner or admin).
+      summary: Download an issued certificate as PDF
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Certificates
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+          description: ''
+  /api/v1/certificate/issued/my/:
+    get:
+      operationId: v1_certificate_issued_my_retrieve
+      description: Certificates issued to the logged-in user (applies to superusers
+        too).
+      summary: List my issued certificates
+      tags:
+      - Certificates
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssuedCertificate'
           description: ''
   /api/v1/course/cat/:
     get:
@@ -1118,6 +1488,41 @@ components:
           type: string
           format: decimal
           pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+    IssuedCertificate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        certificate:
+          allOf:
+          - $ref: '#/components/schemas/PublicCertificate'
+          readOnly: true
+        user_name:
+          type: string
+          readOnly: true
+        score:
+          type: integer
+          maximum: 100
+          minimum: 0
+          nullable: true
+        verification_code:
+          type: string
+          readOnly: true
+        issued_at:
+          type: string
+          format: date-time
+          readOnly: true
+        pdf_url:
+          type: string
+          readOnly: true
+      required:
+      - certificate
+      - id
+      - issued_at
+      - pdf_url
+      - user_name
+      - verification_code
     OTPRequest:
       type: object
       properties:
@@ -1209,6 +1614,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CourseHome'
+    PaginatedIssuedCertificateList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/IssuedCertificate'
     PaginatedPublicAnswerList:
       type: object
       required:
@@ -1232,6 +1660,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PublicAnswer'
+    PaginatedPublicCertificateList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicCertificate'
     PaginatedPublicQuestionList:
       type: object
       required:
@@ -1318,6 +1769,34 @@ components:
           type: string
           nullable: true
           maxLength: 100
+    PatchedIssuedCertificate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        certificate:
+          allOf:
+          - $ref: '#/components/schemas/PublicCertificate'
+          readOnly: true
+        user_name:
+          type: string
+          readOnly: true
+        score:
+          type: integer
+          maximum: 100
+          minimum: 0
+          nullable: true
+        verification_code:
+          type: string
+          readOnly: true
+        issued_at:
+          type: string
+          format: date-time
+          readOnly: true
+        pdf_url:
+          type: string
+          readOnly: true
     PatchedPublicAnswer:
       type: object
       properties:
@@ -1327,6 +1806,22 @@ components:
         title:
           type: string
           maxLength: 100
+        picture:
+          type: string
+          format: uri
+          nullable: true
+    PatchedPublicCertificate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+          maxLength: 1000
         picture:
           type: string
           format: uri
@@ -1454,6 +1949,25 @@ components:
         title:
           type: string
           maxLength: 100
+        picture:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - id
+      - title
+    PublicCertificate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+          maxLength: 1000
         picture:
           type: string
           format: uri
@@ -1645,7 +2159,7 @@ components:
       - refresh
     UserProfileResponse:
       type: object
-      description: Formats the response, including the newly minted tokens.
+      description: Formats the response, including a freshly minted token pair.
       properties:
         id:
           type: string
