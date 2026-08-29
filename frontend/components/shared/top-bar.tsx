@@ -8,7 +8,7 @@ import {
     InputGroupInput,
 } from "@/components/ui/input-group"
 
-const AdminTopBar = () => {
+const TopBar = () => {
     return (
         <div className='w-full flex items-center justify-between'>
 
@@ -44,5 +44,5 @@ const AdminTopBar = () => {
     )
 }
 
-export default AdminTopBar
+export default TopBar
 
