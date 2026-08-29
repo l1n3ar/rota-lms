@@ -21,6 +21,7 @@
 > ROTA is under active development. The API, UI, and deployment flow are evolving and are not yet recommended for production use.
 
 ---
+<img src="sc.png">
 
 ## Table of Contents
 
