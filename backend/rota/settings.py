@@ -105,6 +105,7 @@ INSTALLED_APPS = [
     'course.apps.CourseConfig',
     'quiz.apps.QuizConfig',
     'certificate.apps.CertificateConfig',
+    'insights.apps.InsightsConfig',
 ]
 
 MIDDLEWARE = [
