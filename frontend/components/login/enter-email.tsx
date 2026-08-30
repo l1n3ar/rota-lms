@@ -7,11 +7,11 @@ import { FormFieldIcon } from '../ui/form-field'
 
 const EnterEmailStep = () => {
     return (
-        <div className='flex flex-col gap-2 w-full '>
+        <div className='flex flex-col gap-2x w-full '>
 
             <Label>Email Address</Label>
             <InputGroup className=" py-6x rounded-full">
-                <InputGroupAddon className='mr-2'>
+                <InputGroupAddon className='mr-2x'>
                     <FormFieldIcon icon={Mail} />
                 </InputGroupAddon>
                 <InputGroupInput
