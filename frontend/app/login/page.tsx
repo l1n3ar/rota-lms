@@ -10,14 +10,28 @@ import logo from '@/public/logo-dark.png'
 import LoginHeader from '@/components/login/header'
 import LoginFooter from '@/components/login/footer'
 
-import EnterEmailStep from '@/components/login/enter-email'
-import VerifyOTPStep from '@/components/login/verify-otp'
-import CompleteRegistrationStep from '@/components/login/complete-reg'
+import { LOGIN_STEP_CONFIG } from '@/components/login/config'
+import { LOGIN_STEPS } from '@/types/auth'
 
 
 const Login = () => {
 
-    const [currentStep, setCurrentStep] = useState<'email' | 'otp' | 'reg'>('email')
+    const [currentStep, setCurrentStep] = useState<LOGIN_STEPS>('email')
+
+    const { header, button, component: StepComponent } = LOGIN_STEP_CONFIG[currentStep]
+
+    const setStep = () => {
+        switch (currentStep) {
+            case 'email':
+                setCurrentStep('otp')
+                break
+            case 'otp':
+                setCurrentStep('reg')
+                break
+            default:
+                setCurrentStep('email')
+        }
+    }
 
     return (
         <div
@@ -25,16 +39,14 @@ const Login = () => {
             style={{ backgroundImage: `url(${pageBg.src})` }}
         >
 
-            <div className='flex flex-col rounded-4xl items-center justify-center gap-10x p-10x bg-cover bg-center'
+            <div className='flex flex-col w-xl rounded-4xl items-center justify-center gap-10x p-10x bg-cover bg-center'
                 style={{ backgroundImage: `url(${contentBg.src})` }}
             >
 
                 <Image src={logo} alt='Logo' />
-                <LoginHeader title='Welcome to ROTA' desc='Enter your email to receive a one-time verification code.' />
-                <EnterEmailStep />
-                <VerifyOTPStep />
-                <CompleteRegistrationStep />
-                <LoginFooter onClick={() => { }} buttonText='Send Code' />
+                <LoginHeader title={header.title} desc={header.desc} />
+                <StepComponent />
+                <LoginFooter onClick={setStep} buttonText={button.text} />
             </div>
 
         </div>

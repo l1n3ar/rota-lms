@@ -9,7 +9,7 @@ import { ArrowRight } from "lucide-react"
 
 const VerifyOTPStep = () => {
     return (
-        <div className="flex flex-col gap-4x w-full">
+        <div className="flex flex-col gap-4x max-w-[95%] items-center justify-center">
             <InputOTP maxLength={6}>
                 <InputOTPGroup>
                     <InputOTPSlot index={0} />
