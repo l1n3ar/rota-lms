@@ -95,112 +95,115 @@ const CreateTicketDialog = ({
           <Separator className='mt-2' />
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col gap-4x">
-          <div className="grid grid-cols-2 gap-2x">
-            <FormField label="Subject" htmlFor="subject" error={errors.subject?.message}>
-              <InputGroup className="py-6 px-2">
-                <InputGroupAddon>
-                  <FormFieldIcon icon={AlignLeft} />
-                </InputGroupAddon>
-                <InputGroupInput
-                  id="subject"
-                  placeholder="Briefly describe your issue"
-                  {...register("subject")}
-                />
-              </InputGroup>
-            </FormField>
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="grid grid-cols-2 gap-4x">
+          <FormField label="Subject" htmlFor="subject" error={errors.subject?.message}>
+            <InputGroup className=" py-6x">
+              <InputGroupAddon>
+                <FormFieldIcon icon={AlignLeft} />
+              </InputGroupAddon>
+              <InputGroupInput
+                id="subject"
+                placeholder="Briefly describe your issue"
+                {...register("subject")}
 
-            <FormField label="Category" error={errors.category?.message}>
-              <Controller
-                control={control}
-                name="category"
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange} >
-                    <SelectTrigger className="w-full px-4 py-6">
-                      <FormFieldIcon icon={ListTree} />
-                      <SelectValue placeholder="Select Category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {CATEGORY_OPTIONS.map((category) => (
-                        <SelectItem key={category} value={category}>
-                          {category}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
               />
-            </FormField>
-          </div>
+            </InputGroup>
+          </FormField>
 
-          <div className="grid grid-cols-2 gap-2x">
-            <FormField label="Priority" >
-              <Controller
-                control={control}
-                name="priority"
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="w-full">
-                      <FormFieldIcon icon={Clock} />
-                      <SelectValue placeholder="Select priority">
-                        {(value: SUPPORT_TICKET_PRIORITY | null) => {
-                          const option = PRIORITY_OPTIONS.find((o) => o.value === value)
-                          return option ? `${option.label} – ${option.description}` : "Select priority"
-                        }}
-                      </SelectValue>
-                    </SelectTrigger>
-                    <SelectContent>
-                      {PRIORITY_OPTIONS.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label} <span className="text-muted-foreground">{option.description}</span>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-            </FormField>
+          <FormField label="Category" error={errors.category?.message}>
+            <Controller
+              control={control}
+              name="category"
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full  py-6x">
+                    <FormFieldIcon icon={ListTree} />
+                    <SelectValue placeholder="Select Category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CATEGORY_OPTIONS.map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </FormField>
 
-            <FormField label="Related course" hint="optional">
-              <Controller
-                control={control}
-                name="relatedCourseId"
-                render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange} disabled={courses.length === 0}>
-                    <SelectTrigger className="w-full">
-                      <FormFieldIcon icon={GraduationCap} />
-                      <SelectValue placeholder="Select a course..." />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {courses.map((course) => (
-                        <SelectItem key={course.id} value={course.id}>
-                          {course.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-            </FormField>
-          </div>
+          <FormField label="Priority">
+            <Controller
+              control={control}
+              name="priority"
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full py-6x">
+                    <FormFieldIcon icon={Clock} />
+                    <SelectValue placeholder="Select priority">
+                      {(value: SUPPORT_TICKET_PRIORITY | null) => {
+                        const option = PRIORITY_OPTIONS.find((o) => o.value === value)
+                        return option ? `${option.label} – ${option.description}` : "Select priority"
+                      }}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PRIORITY_OPTIONS.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label} <span className="text-muted-foreground">{option.description}</span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </FormField>
 
-          <FormField label="Description" htmlFor="description" error={errors.description?.message}>
+          <FormField label="Related course" hint="optional">
+            <Controller
+              control={control}
+              name="relatedCourseId"
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange} disabled={courses.length === 0}>
+                  <SelectTrigger className="w-full py-6x">
+                    <FormFieldIcon icon={GraduationCap} />
+                    <SelectValue placeholder="Select a course..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {courses.map((course) => (
+                      <SelectItem key={course.id} value={course.id}>
+                        {course.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </FormField>
+
+          <FormField
+            className="col-span-2"
+            label="Description"
+            htmlFor="description"
+            error={errors.description?.message}
+          >
             <Textarea
               id="description"
               placeholder="Explain what's happening, what you expected, and any error messages you see."
               {...register("description")}
+              className="py-6x"
             />
           </FormField>
 
-          <FormField label="Attachment">
+          <FormField className="col-span-2" label="Attachment">
             <Controller
               control={control}
               name="attachment"
               render={({ field }) => (
                 <>
-                  <InputGroup>
+                  <InputGroup className="py-6x">
                     <InputGroupAddon>
-                      <FormFieldIcon icon={Paperclip} />
+                      {/* <FormFieldIcon icon={Paperclip} /> */}
                     </InputGroupAddon>
                     <InputGroupInput
                       readOnly
@@ -231,7 +234,7 @@ const CreateTicketDialog = ({
             />
           </FormField>
 
-          <Button type="submit" className="w-full rounded-full">
+          <Button type="submit" className="col-span-2 w-full rounded-full p-4">
             Submit Ticket
             <ArrowRight />
           </Button>

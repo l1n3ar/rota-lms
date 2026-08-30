@@ -32,10 +32,10 @@ interface FormFieldIconProps {
 
 function FormFieldIcon({ icon: Icon }: FormFieldIconProps) {
   return (
-    <>
-      <Icon />
+    <div className="flex items-center gap-2">
+      <Icon className="size-4x ml-2x"/>
       <Separator orientation="vertical" />
-    </>
+    </div>
   )
 }
 
