@@ -1,14 +1,9 @@
-import React from 'react'
+
 import { Button } from '../ui/button'
-import { Bell, Search, Settings, TextAlignStart } from 'lucide-react'
+import { Bell, Settings, TextAlignStart } from 'lucide-react'
+import SearchInput from './search-input'
 
-import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupInput,
-} from "@/components/ui/input-group"
-
-const AdminTopBar = () => {
+const TopBar = () => {
     return (
         <div className='w-full flex items-center justify-between'>
 
@@ -22,18 +17,7 @@ const AdminTopBar = () => {
             </div>
 
             <div className='flex items-center gap-2'>
-                <InputGroup className='bg-card p-6 flex w-[20rem]'>
-
-                    <InputGroupInput
-                        id="inline-end-input"
-                        placeholder="Search from courses..."
-                    />
-
-                    <InputGroupAddon align="inline-end">
-                        <Search />
-                    </InputGroupAddon>
-
-                </InputGroup>
+                <SearchInput placeholderText='Search from courses...' className='rounded-full'/>
 
                 <Button className='rounded-full p-4x shrink-0' size='icon-xl' variant='outline'><Bell /></Button>
                 <Button className='rounded-full p-4x shrink-0' size='icon-xl' variant='outline'><Settings /></Button>
@@ -44,5 +28,5 @@ const AdminTopBar = () => {
     )
 }
 
-export default AdminTopBar
+export default TopBar
 

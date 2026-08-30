@@ -1,10 +1,10 @@
-import AdminTopBar from "@/components/admin/top-bar"
+import TopBar from "@/components/shared/top-bar"
 
 
-const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+const ProtectedLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className='h-full w-full p-8x bg-muted flex flex-col gap-4'>
-      <AdminTopBar />
+      <TopBar />
       <div className='bg-card rounded-4xl h-full w-full p-6'>
         {children}
       </div>
@@ -13,4 +13,4 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default AdminLayout
+export default ProtectedLayout
