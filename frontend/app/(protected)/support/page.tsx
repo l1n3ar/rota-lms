@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { SupportTicketsTable } from '@/components/support-tickets/admin/datatable/table'
+
 import CreateTicketDialog from '@/components/support-tickets/user/create-ticket-dialog'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'

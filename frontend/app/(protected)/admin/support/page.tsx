@@ -1,7 +1,4 @@
 import { SupportTicketsTable } from '@/components/support-tickets/admin/datatable/table'
-import { Button } from '@/components/ui/button'
-import { InputGroup, InputGroupInput, InputGroupAddon } from '@/components/ui/input-group'
-import { ListFilter, Search } from 'lucide-react'
 import { mockSupportTickets } from '@/data/mock/support-ticket'
 import TicketTopBar from '@/components/support-tickets/tickets-top-bar'
 

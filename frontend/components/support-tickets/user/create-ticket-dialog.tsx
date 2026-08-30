@@ -4,7 +4,7 @@ import * as React from "react"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { AlignLeft, ArrowRight, Clock, GraduationCap, ListTree, Paperclip, Upload } from "lucide-react"
+import { AlignLeft, ArrowRight, Clock, GraduationCap, ListTree, Upload } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {

@@ -1,12 +1,6 @@
-import React from 'react'
-import { Button } from '../ui/button'
-import { Bell, Search, Settings, TextAlignStart } from 'lucide-react'
 
-import {
-    InputGroup,
-    InputGroupAddon,
-    InputGroupInput,
-} from "@/components/ui/input-group"
+import { Button } from '../ui/button'
+import { Bell, Settings, TextAlignStart } from 'lucide-react'
 import SearchInput from './search-input'
 
 const TopBar = () => {

@@ -6,8 +6,7 @@ import { SupportTicket } from "@/types/support-ticket";
 
 import empty from '@/public/empty.png'
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+
 
 export function UserSupportTicketsTable({ data }: { data: SupportTicket[] }) {
 
