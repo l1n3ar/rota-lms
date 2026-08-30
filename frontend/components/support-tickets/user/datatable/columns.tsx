@@ -38,7 +38,7 @@ export const columns = columnHelper.columns([
             return (
                 <div className="flex flex-col gap-1">
                     <span>{info.getValue()}</span>
-                    {info.row.original.priority && <IconBadge {...TICKET_STATUS_CONFIG[info.row.original.status]} />}
+                    {info.row.original.status && <IconBadge {...TICKET_STATUS_CONFIG[info.row.original.status]} />}
                 </div>
 
             )
