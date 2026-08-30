@@ -7,6 +7,7 @@ import {
     InputGroupAddon,
     InputGroupInput,
 } from "@/components/ui/input-group"
+import SearchInput from './search-input'
 
 const TopBar = () => {
     return (
@@ -22,18 +23,7 @@ const TopBar = () => {
             </div>
 
             <div className='flex items-center gap-2'>
-                <InputGroup className='bg-card p-6 flex w-[20rem]'>
-
-                    <InputGroupInput
-                        id="inline-end-input"
-                        placeholder="Search from courses..."
-                    />
-
-                    <InputGroupAddon align="inline-end">
-                        <Search />
-                    </InputGroupAddon>
-
-                </InputGroup>
+                <SearchInput placeholderText='Search from courses...' />
 
                 <Button className='rounded-full p-4x shrink-0' size='icon-xl' variant='outline'><Bell /></Button>
                 <Button className='rounded-full p-4x shrink-0' size='icon-xl' variant='outline'><Settings /></Button>
