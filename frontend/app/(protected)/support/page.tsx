@@ -14,7 +14,7 @@ import { SupportTicket } from '@/types/support-ticket'
 
 const UserSupportPage = () => {
     const [isCreateTicketOpen, setIsCreateTicketOpen] = useState(false)
-    const data : SupportTicket[] = [] //set to empty array to see empty state
+    const data : SupportTicket[] = mockSupportTickets //set to empty array to see empty state
  
     return (
         <>
