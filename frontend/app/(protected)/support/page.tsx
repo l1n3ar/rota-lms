@@ -8,6 +8,7 @@ import { ArrowRight } from 'lucide-react'
 
 import { mockSupportTickets } from '@/data/mock/support-ticket'
 import TicketTopBar from '@/components/support-tickets/tickets-top-bar'
+import { UserSupportTicketsTable } from '@/components/support-tickets/user/datatable/table'
 
 
 const UserSupportPage = () => {
@@ -35,7 +36,7 @@ const UserSupportPage = () => {
 
                 <div id='table-section' className='w-2/3 flex flex-col gap-2'>
                     <TicketTopBar onClick={() => setIsCreateTicketOpen(true)} />
-                    <SupportTicketsTable data={mockSupportTickets} />
+                    <UserSupportTicketsTable data={mockSupportTickets} />
 
                 </div>
             </div>

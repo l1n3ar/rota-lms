@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button"
 import { SupportTicket } from "@/types/support-ticket"
 import { MessagesSquare, UserPlus } from "lucide-react"
 import AssignTicketDialog from "../assign-ticket/assign-ticket-dialog"
-import CommentOnTicketDialog from "../comment-on-ticket-dialog"
+import CommentOnTicketDialog from "../../comment-on-ticket-dialog"
+
 
 
 

@@ -4,9 +4,10 @@
 
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
 import { SupportTicket } from "@/types/support-ticket"
-import SupportTicketHeader from "../support-ticket-header"
-import SupportTicketContent from "../support-ticket-content"
-import SupportTicketCommentBox from "../support-ticket-comment-box"
+import SupportTicketHeader from "./support-ticket-header"
+import SupportTicketContent from "./support-ticket-content"
+import SupportTicketCommentBox from "./support-ticket-comment-box"
+
 
 interface CommentOnTicketDialogProps {
   ticket: SupportTicket

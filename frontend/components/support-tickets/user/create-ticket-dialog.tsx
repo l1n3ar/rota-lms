@@ -19,7 +19,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "@/components/ui/input-group"
-import { Label } from "@/components/ui/label"
+import { FormField, FormFieldIcon } from "@/components/ui/form-field"
 import { Separator } from "@/components/ui/separator"
 import {
   Select,
@@ -38,10 +38,10 @@ const PRIORITY_OPTIONS: {
   label: string
   description: string
 }[] = [
-  { value: "low", label: "Low", description: "Minor issue, no urgency" },
-  { value: "medium", label: "Medium", description: "Impacts work, needs attention soon" },
-  { value: "high", label: "High", description: "Blocking issue, needs urgent help" },
-]
+    { value: "low", label: "Low", description: "Minor issue, no urgency" },
+    { value: "medium", label: "Medium", description: "Impacts work, needs attention soon" },
+    { value: "high", label: "High", description: "Blocking issue, needs urgent help" },
+  ]
 
 const createTicketSchema = z.object({
   subject: z.string().min(1, "Subject is required"),
@@ -89,19 +89,18 @@ const CreateTicketDialog = ({
         onOpenChange(nextOpen)
       }}
     >
-      <DialogContent size='4xl'>
+      <DialogContent size='2xl'>
         <DialogHeader>
-          <DialogTitle className='border-b'>Create Ticket</DialogTitle>
+          <DialogTitle >Create Ticket</DialogTitle>
+          <Separator className='mt-2' />
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col gap-4x">
-          <div className="grid grid-cols-2 gap-4x">
-            <div className="flex flex-col gap-1x">
-              <Label htmlFor="subject">Subject</Label>
-              <InputGroup>
+          <div className="grid grid-cols-2 gap-2x">
+            <FormField label="Subject" htmlFor="subject" error={errors.subject?.message}>
+              <InputGroup className="py-6 px-2">
                 <InputGroupAddon>
-                  <AlignLeft />
-                  <Separator orientation="vertical" />
+                  <FormFieldIcon icon={AlignLeft} />
                 </InputGroupAddon>
                 <InputGroupInput
                   id="subject"
@@ -109,21 +108,16 @@ const CreateTicketDialog = ({
                   {...register("subject")}
                 />
               </InputGroup>
-              {errors.subject && (
-                <span className="text-xs text-destructive">{errors.subject.message}</span>
-              )}
-            </div>
+            </FormField>
 
-            <div className="flex flex-col gap-1x">
-              <Label>Category</Label>
+            <FormField label="Category" error={errors.category?.message}>
               <Controller
                 control={control}
                 name="category"
                 render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="w-full">
-                      <ListTree />
-                      <Separator orientation="vertical" />
+                  <Select value={field.value} onValueChange={field.onChange} >
+                    <SelectTrigger className="w-full px-4 py-6">
+                      <FormFieldIcon icon={ListTree} />
                       <SelectValue placeholder="Select Category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -136,23 +130,18 @@ const CreateTicketDialog = ({
                   </Select>
                 )}
               />
-              {errors.category && (
-                <span className="text-xs text-destructive">{errors.category.message}</span>
-              )}
-            </div>
+            </FormField>
           </div>
 
-          <div className="grid grid-cols-2 gap-4x">
-            <div className="flex flex-col gap-1x">
-              <Label>Priority</Label>
+          <div className="grid grid-cols-2 gap-2x">
+            <FormField label="Priority" >
               <Controller
                 control={control}
                 name="priority"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
                     <SelectTrigger className="w-full">
-                      <Clock />
-                      <Separator orientation="vertical" />
+                      <FormFieldIcon icon={Clock} />
                       <SelectValue placeholder="Select priority">
                         {(value: SUPPORT_TICKET_PRIORITY | null) => {
                           const option = PRIORITY_OPTIONS.find((o) => o.value === value)
@@ -170,21 +159,16 @@ const CreateTicketDialog = ({
                   </Select>
                 )}
               />
-            </div>
+            </FormField>
 
-            <div className="flex flex-col gap-1x">
-              <div className="flex items-center justify-between">
-                <Label>Related course</Label>
-                <span className="text-xs text-muted-foreground">optional</span>
-              </div>
+            <FormField label="Related course" hint="optional">
               <Controller
                 control={control}
                 name="relatedCourseId"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange} disabled={courses.length === 0}>
                     <SelectTrigger className="w-full">
-                      <GraduationCap />
-                      <Separator orientation="vertical" />
+                      <FormFieldIcon icon={GraduationCap} />
                       <SelectValue placeholder="Select a course..." />
                     </SelectTrigger>
                     <SelectContent>
@@ -197,23 +181,18 @@ const CreateTicketDialog = ({
                   </Select>
                 )}
               />
-            </div>
+            </FormField>
           </div>
 
-          <div className="flex flex-col gap-1x">
-            <Label htmlFor="description">Description</Label>
+          <FormField label="Description" htmlFor="description" error={errors.description?.message}>
             <Textarea
               id="description"
               placeholder="Explain what's happening, what you expected, and any error messages you see."
               {...register("description")}
             />
-            {errors.description && (
-              <span className="text-xs text-destructive">{errors.description.message}</span>
-            )}
-          </div>
+          </FormField>
 
-          <div className="flex flex-col gap-1x">
-            <Label>Attachment</Label>
+          <FormField label="Attachment">
             <Controller
               control={control}
               name="attachment"
@@ -221,8 +200,7 @@ const CreateTicketDialog = ({
                 <>
                   <InputGroup>
                     <InputGroupAddon>
-                      <Paperclip />
-                      <Separator orientation="vertical" />
+                      <FormFieldIcon icon={Paperclip} />
                     </InputGroupAddon>
                     <InputGroupInput
                       readOnly
@@ -251,7 +229,7 @@ const CreateTicketDialog = ({
                 </>
               )}
             />
-          </div>
+          </FormField>
 
           <Button type="submit" className="w-full rounded-full">
             Submit Ticket
