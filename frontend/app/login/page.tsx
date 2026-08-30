@@ -5,8 +5,14 @@ import logo from '@/public/logo-dark.png'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
+import { useState } from 'react'
+import LoginHeader from '@/components/login/header'
+import EnterEmailStep from '@/components/login/enter-email'
 
 const Login = () => {
+
+    const [currentStep, setCurrentStep] = useState<'email' | 'otp' | 'reg'>('email')
+
     return (
         <div
             className='h-full min-h-screen w-full flex items-center justify-center bg-cover bg-center'
@@ -18,10 +24,11 @@ const Login = () => {
             >
 
                 <Image src={logo} alt='Logo' />
-                <div className='flex flex-col items-center '>
-                    <span className='text-2xl'>Welcome To ROTA</span>
-                    <span className='text-muted-foreground'>Enter your email to receive a one-time verification code.</span>
-                </div>
+                <LoginHeader title='Welcome to ROTA' desc='Enter your email to receive a one-time verification code.' />
+
+                
+                    <EnterEmailStep />
+    
 
                 <Button className='rounded-full w-full p-6x'>
                     Send Code
