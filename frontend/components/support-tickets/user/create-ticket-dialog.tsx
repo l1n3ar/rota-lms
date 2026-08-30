@@ -20,6 +20,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group"
 import { Label } from "@/components/ui/label"
+import { Separator } from "@/components/ui/separator"
 import {
   Select,
   SelectContent,
@@ -100,6 +101,7 @@ const CreateTicketDialog = ({
               <InputGroup>
                 <InputGroupAddon>
                   <AlignLeft />
+                  <Separator orientation="vertical" />
                 </InputGroupAddon>
                 <InputGroupInput
                   id="subject"
@@ -119,8 +121,9 @@ const CreateTicketDialog = ({
                 name="category"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="w-full rounded-full">
+                    <SelectTrigger className="w-full">
                       <ListTree />
+                      <Separator orientation="vertical" />
                       <SelectValue placeholder="Select Category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -147,8 +150,9 @@ const CreateTicketDialog = ({
                 name="priority"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger className="w-full rounded-full">
+                    <SelectTrigger className="w-full">
                       <Clock />
+                      <Separator orientation="vertical" />
                       <SelectValue placeholder="Select priority">
                         {(value: SUPPORT_TICKET_PRIORITY | null) => {
                           const option = PRIORITY_OPTIONS.find((o) => o.value === value)
@@ -178,8 +182,9 @@ const CreateTicketDialog = ({
                 name="relatedCourseId"
                 render={({ field }) => (
                   <Select value={field.value} onValueChange={field.onChange} disabled={courses.length === 0}>
-                    <SelectTrigger className="w-full rounded-full">
+                    <SelectTrigger className="w-full">
                       <GraduationCap />
+                      <Separator orientation="vertical" />
                       <SelectValue placeholder="Select a course..." />
                     </SelectTrigger>
                     <SelectContent>
@@ -217,6 +222,7 @@ const CreateTicketDialog = ({
                   <InputGroup>
                     <InputGroupAddon>
                       <Paperclip />
+                      <Separator orientation="vertical" />
                     </InputGroupAddon>
                     <InputGroupInput
                       readOnly

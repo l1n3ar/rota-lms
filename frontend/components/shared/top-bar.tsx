@@ -23,7 +23,7 @@ const TopBar = () => {
             </div>
 
             <div className='flex items-center gap-2'>
-                <SearchInput placeholderText='Search from courses...' />
+                <SearchInput placeholderText='Search from courses...' className='rounded-full'/>
 
                 <Button className='rounded-full p-4x shrink-0' size='icon-xl' variant='outline'><Bell /></Button>
                 <Button className='rounded-full p-4x shrink-0' size='icon-xl' variant='outline'><Settings /></Button>
