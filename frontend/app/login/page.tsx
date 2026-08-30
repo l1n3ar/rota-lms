@@ -39,13 +39,19 @@ const Login = () => {
             style={{ backgroundImage: `url(${pageBg.src})` }}
         >
 
-            <div className='flex flex-col w-xl rounded-4xl items-center justify-center gap-10x p-10x bg-cover bg-center'
+            <div className='flex flex-col h-[35rem] w-xl rounded-4xl items-center gap-10x p-10x bg-cover bg-center'
                 style={{ backgroundImage: `url(${contentBg.src})` }}
             >
 
-                <Image src={logo} alt='Logo' />
-                <LoginHeader title={header.title} desc={header.desc} />
-                <StepComponent />
+                <div className='flex flex-col items-center gap-10x'>
+                    <Image src={logo} alt='Logo' />
+                    <LoginHeader title={header.title} desc={header.desc} />
+                </div>
+
+                <div className='flex-1 w-full flex items-center justify-center'>
+                    <StepComponent />
+                </div>
+
                 <LoginFooter onClick={setStep} buttonText={button.text} />
             </div>
 
